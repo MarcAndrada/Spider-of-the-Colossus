@@ -8,17 +8,17 @@ using System.Collections;
 public class SpiderController : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 3f;
+    private float _speed;
     [SerializeField]
-    private float smoothness = 5f;
+    private float smoothness;
     [SerializeField]
-    private int raysNb = 8;
+    private int raysNb;
     [SerializeField]
-    private float raysEccentricity = 0.2f;
+    private float raysEccentricity;
     [SerializeField]
-    private float outerRaysOffset = 2f;
+    private float outerRaysOffset;
     [SerializeField]
-    private float innerRaysOffset = 25f;
+    private float innerRaysOffset;
     [SerializeField]
     private float rotSpeed;
     [SerializeField]
@@ -211,7 +211,7 @@ public class SpiderController : MonoBehaviour
                 upward = pn[1];
 
                 Vector3[] pos = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, raysEccentricity, innerRaysOffset, outerRaysOffset, raysNb);
-                transform.position = Vector3.Lerp(lastPosition, pos[0], 1f / (1f + smoothness));
+                transform.position = Vector3.Lerp(lastPosition, pos[0], 1f / (0.5f + smoothness));
                 if (valueY == -1)
                 {
                     forward = -velocity.normalized;
@@ -239,7 +239,7 @@ public class SpiderController : MonoBehaviour
                     !Physics.Raycast(legsPos[2].transform.position, -spiderObj.transform.up, raySurfaceCheckDist ,scalableMask) ||
                     !Physics.Raycast(legsPos[3].transform.position, -spiderObj.transform.up, raySurfaceCheckDist ,scalableMask))
                 {
-                    setOnAir();
+                    //setOnAir();
                 }
                 
             }

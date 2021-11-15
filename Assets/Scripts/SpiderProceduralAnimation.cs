@@ -102,7 +102,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
             {
                 Vector3 targetPoint = desiredPositions[indexToMove] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPositions[indexToMove] - legTargets[indexToMove].position) + velocity * velocityMultiplier;
 
-                Vector3[] positionAndNormalFwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange, (transform.parent.up - velocity * 100).normalized);
+                Vector3[] positionAndNormalFwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange, (transform.parent.up - velocity * 75).normalized);
                 Vector3[] positionAndNormalBwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange * (1f + velocity.magnitude), (transform.parent.up + velocity * 75).normalized);
 
                 legMoving[0] = true;
