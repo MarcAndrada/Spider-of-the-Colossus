@@ -52,7 +52,7 @@ public class SpiderController : MonoBehaviour
     private SpiderProceduralAnimation spiderAnimCont;
 
 
- /* 
+  
     Vector3[] GetIcoSphereCoords(int depth)
     {
         Vector3[] res = new Vector3[(int)Mathf.Pow(4, depth) * 12];
@@ -99,7 +99,7 @@ public class SpiderController : MonoBehaviour
         res[1] /= amount;
         return res;
     }
- */
+ 
 
     static Vector3[] GetClosestPoint(Vector3 point, Vector3 forward, Vector3 up, float halfRange, float eccentricity, float offset1, float offset2, int rayAmount)
     {
@@ -122,7 +122,7 @@ public class SpiderController : MonoBehaviour
             RaycastHit hit;
             Vector3 largener = Vector3.ProjectOnPlane(dir, up);
             Ray ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset1 / 100f, dir);
-            //Debug.DrawRay(ray.origin, ray.direction);
+            Debug.DrawRay(ray.origin, ray.direction, Color.gray);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
@@ -131,7 +131,7 @@ public class SpiderController : MonoBehaviour
                 positionAmount += 1;
             }
             ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset2 / 100f, dir);
-            //Debug.DrawRay(ray.origin, ray.direction, Color.green);
+            Debug.DrawRay(ray.origin, ray.direction, Color.green);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
