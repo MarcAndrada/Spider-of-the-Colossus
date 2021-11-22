@@ -49,6 +49,8 @@ public class SpiderController : MonoBehaviour
     private Vector3 upward;
     private Quaternion lastRot;
     private Vector3[] pn;
+    Vector3 movePlayer;
+    Rigidbody rb;
 
 
     private SpiderProceduralAnimation spiderAnimCont;
@@ -167,6 +169,8 @@ public class SpiderController : MonoBehaviour
         onAir = false;
         canCheckFloor = true;
         spiderAnimCont = GetComponentInChildren<SpiderProceduralAnimation>();
+        rb = GetComponent<Rigidbody>();
+        
     }
 
     private void Update()
@@ -251,7 +255,7 @@ public class SpiderController : MonoBehaviour
                     !Physics.Raycast(legsPos[2].transform.position, -spiderObj.transform.up, raySurfaceCheckDist ,scalableMask) ||
                     !Physics.Raycast(legsPos[3].transform.position, -spiderObj.transform.up, raySurfaceCheckDist ,scalableMask))
                 {
-                    //setOnAir();
+                    setOnAir();
                 }
                 
             }
@@ -294,7 +298,9 @@ public class SpiderController : MonoBehaviour
     {
         Vector3 rayStartPos = new Vector3(spiderObj.transform.position.x, spiderObj.transform.position.y + 0.1f, spiderObj.transform.position.z);
         onAir = true;
-        spiderAnimCont.SetStarterPosBeforeAir();   
+        spiderAnimCont.SetStarterPosBeforeAir();
+        rb.isKinematic = false;
+        transform.rotation = new Quaternion( 0.0f,transform.rotation.y, transform.rotation.z, transform.rotation.w);
     }
 
     private void setOnFloor() 
@@ -302,11 +308,13 @@ public class SpiderController : MonoBehaviour
         Vector3 rayStartPos = new Vector3(spiderObj.transform.position.x, spiderObj.transform.position.y + 0.1f, spiderObj.transform.position.z);
         onAir = false;
         Debug.DrawRay(rayStartPos, -spiderObj.transform.up * raySurfaceCheckDist, Color.green);
+        rb.isKinematic = true;
 
     }
 
     public bool isOnAir()
     {
+
         return onAir;
     }
 
