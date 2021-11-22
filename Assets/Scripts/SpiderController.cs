@@ -20,6 +20,8 @@ public class SpiderController : MonoBehaviour
     [SerializeField]
     private float innerRaysOffset;
     [SerializeField]
+    private float middleRaysOffset;
+    [SerializeField]
     private float rotSpeed;
     [SerializeField]
     private float rotSmooth;
@@ -101,7 +103,7 @@ public class SpiderController : MonoBehaviour
     }
  
 
-    static Vector3[] GetClosestPoint(Vector3 point, Vector3 forward, Vector3 up, float halfRange, float eccentricity, float offset1, float offset2, int rayAmount)
+    static Vector3[] GetClosestPoint(Vector3 point, Vector3 forward, Vector3 up, float halfRange, float eccentricity, float offset1, float offset2, float offset3, int rayAmount)
     {
         Vector3[] res = new Vector3[2] { point, up };
         Vector3 right = Vector3.Cross(up, forward);
@@ -137,6 +139,16 @@ public class SpiderController : MonoBehaviour
                 res[0] += hit.point;
                 res[1] += hit.normal;
                 normalAmount   += 1;
+                positionAmount += 1;
+            }
+
+            ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset3 / 100f, dir);
+            Debug.DrawRay(ray.origin, ray.direction, Color.green);
+            if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
+            {
+                res[0] += hit.point;
+                res[1] += hit.normal;
+                normalAmount += 1;
                 positionAmount += 1;
             }
         }
@@ -206,11 +218,11 @@ public class SpiderController : MonoBehaviour
 
             if (valueX != 0 || valueY != 0)
             {
-                pn = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, 0.1f, 30, -30, 5);
+                pn = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, 0.1f, 30, -30,0, 5);
 
                 upward = pn[1];
 
-                Vector3[] pos = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, raysEccentricity, innerRaysOffset, outerRaysOffset, raysNb);
+                Vector3[] pos = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, raysEccentricity, innerRaysOffset, outerRaysOffset, middleRaysOffset, raysNb);
                 transform.position = Vector3.Lerp(lastPosition, pos[0], 1f / (0.5f + smoothness));
                 if (valueY == -1)
                 {
