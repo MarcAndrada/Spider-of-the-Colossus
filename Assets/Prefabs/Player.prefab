@@ -23,8 +23,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676851537}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0536, y: 0.129, z: 0.0821}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.019, y: 0.129, z: 0.017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3901861740086246501}
@@ -233,6 +233,8 @@ MonoBehaviour:
   onAir: 1
   raySurfaceCheckDist: 0.5
   spiderObj: {fileID: 676851537}
+  spiderMesh: {fileID: 0}
+  camera: {fileID: 0}
   legsPos:
   - {fileID: 7934012942243932294}
   - {fileID: 8610228917519002151}
@@ -241,6 +243,7 @@ MonoBehaviour:
   scalableMask:
     serializedVersion: 2
     m_Bits: 64
+  timeToWaitCheckAir: 0
   canCheckFloor: 1
 --- !u!54 &197366924
 Rigidbody:
@@ -258,6 +261,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &1645862130
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924029680011812751}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.09
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!1001 &5723258572099342563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,16 +390,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7178426059662145041, guid: 97cb57f4769960641b799fbd03360972, type: 3}
   m_PrefabInstance: {fileID: 5723258572099342563}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &1645862130
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924029680011812751}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.09
-  m_Center: {x: 0, y: 0.1, z: 0}

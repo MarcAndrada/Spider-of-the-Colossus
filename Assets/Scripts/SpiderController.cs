@@ -7,10 +7,16 @@ using System.Collections;
 
 public class SpiderController : MonoBehaviour
 {
+    [Header("Movement Stats")]
     [SerializeField]
     private float _speed;
     [SerializeField]
     private float smoothness;
+    [SerializeField]
+    private float rotSpeed;
+    [SerializeField]
+    private float rotSmooth;
+    [Header("SceneCheckers")]
     [SerializeField]
     private int raysNb;
     [SerializeField]
@@ -21,26 +27,19 @@ public class SpiderController : MonoBehaviour
     private float innerRaysOffset;
     [SerializeField]
     private float middleRaysOffset;
-    [SerializeField]
-    private float rotSpeed;
-    [SerializeField]
-    private float rotSmooth;
-    [SerializeField]
-    private bool onAir;
-    [SerializeField]
-    private float raySurfaceCheckDist;
+    [Header("Extern Objects")]
     [SerializeField]
     private GameObject spiderObj;
+    [SerializeField]
+    private GameObject spiderMesh;
     [SerializeField]
     private Transform[] legsPos;
     [SerializeField]
     LayerMask scalableMask;
 
-
     private float valueY;
     private float valueX;
-    [SerializeField]
-    private bool canCheckFloor;
+
     
     private Vector3 velocity;
     private Vector3 lastVelocity;
@@ -49,8 +48,9 @@ public class SpiderController : MonoBehaviour
     private Vector3 upward;
     private Quaternion lastRot;
     private Vector3[] pn;
-    Vector3 movePlayer;
-    Rigidbody rb;
+    private Rigidbody rb;
+    private float timeWaitedAir = 0;
+
 
 
     private SpiderProceduralAnimation spiderAnimCont;
@@ -126,7 +126,7 @@ public class SpiderController : MonoBehaviour
             RaycastHit hit;
             Vector3 largener = Vector3.ProjectOnPlane(dir, up);
             Ray ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset1 / 100f, dir);
-            Debug.DrawRay(ray.origin, ray.direction, Color.gray);
+            //Debug.DrawRay(ray.origin, ray.direction, Color.gray);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
@@ -135,7 +135,7 @@ public class SpiderController : MonoBehaviour
                 positionAmount += 1;
             }
             ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset2 / 100f, dir);
-            Debug.DrawRay(ray.origin, ray.direction, Color.green);
+           // Debug.DrawRay(ray.origin, ray.direction, Color.green);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
@@ -145,7 +145,7 @@ public class SpiderController : MonoBehaviour
             }
 
             ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset3 / 100f, dir);
-            Debug.DrawRay(ray.origin, ray.direction, Color.green);
+            //Debug.DrawRay(ray.origin, ray.direction, Color.green);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
@@ -166,8 +166,6 @@ public class SpiderController : MonoBehaviour
         forward = transform.forward;
         upward = transform.up;
         lastRot = transform.rotation;
-        onAir = false;
-        canCheckFloor = true;
         spiderAnimCont = GetComponentInChildren<SpiderProceduralAnimation>();
         rb = GetComponent<Rigidbody>();
         
@@ -175,18 +173,16 @@ public class SpiderController : MonoBehaviour
 
     private void Update()
     {
+       
         valueY = Input.GetAxis("Vertical");
         valueX = Input.GetAxis("Horizontal");
-
+       
+        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (!onAir)
-        {
-
 
             velocity = (smoothness * velocity + (transform.position - lastPosition)) / (1f + smoothness);
             if (velocity.magnitude < 0.00025f)
@@ -242,80 +238,9 @@ public class SpiderController : MonoBehaviour
 
             lastRot = transform.rotation;
 
-            Debug.DrawRay(spiderObj.transform.position, -spiderObj.transform.up * (raySurfaceCheckDist * 1.5f), Color.green);
-            if (!Physics.Raycast(spiderObj.transform.position, -spiderObj.transform.up, raySurfaceCheckDist * 1.5f, scalableMask))
-            {
-                Debug.DrawRay(legsPos[0].transform.position, -spiderObj.transform.up * (raySurfaceCheckDist), Color.white);
-                Debug.DrawRay(legsPos[1].transform.position, -spiderObj.transform.up * (raySurfaceCheckDist), Color.white);
-                Debug.DrawRay(legsPos[2].transform.position, -spiderObj.transform.up * (raySurfaceCheckDist), Color.white);
-                Debug.DrawRay(legsPos[3].transform.position, -spiderObj.transform.up * (raySurfaceCheckDist), Color.white);
-
-                if (!Physics.Raycast(legsPos[0].transform.position, -spiderObj.transform.up, raySurfaceCheckDist, scalableMask) ||
-                    !Physics.Raycast(legsPos[1].transform.position, -spiderObj.transform.up, raySurfaceCheckDist ,scalableMask) ||
-                    !Physics.Raycast(legsPos[2].transform.position, -spiderObj.transform.up, raySurfaceCheckDist ,scalableMask) ||
-                    !Physics.Raycast(legsPos[3].transform.position, -spiderObj.transform.up, raySurfaceCheckDist ,scalableMask))
-                {
-                    setOnAir();
-                }
-                
-            }
-        }
-        else
-        {
-            if (canCheckFloor)
-            {
-
-                Vector3 rayStartPos = new Vector3(spiderObj.transform.position.x, spiderObj.transform.position.y + 0.1f, spiderObj.transform.position.z);
-                if (Physics.Raycast(rayStartPos, -spiderObj.transform.up, raySurfaceCheckDist, scalableMask)){
-                    setOnFloor();
-
-                }
-                else
-                {
-                    if (Physics.Raycast(rayStartPos, spiderObj.transform.up,raySurfaceCheckDist, scalableMask) ||
-                    Physics.Raycast(rayStartPos, spiderObj.transform.right, raySurfaceCheckDist, scalableMask) ||
-                    Physics.Raycast(rayStartPos, -spiderObj.transform.right, raySurfaceCheckDist, scalableMask))
-                    {
-                        setOnFloor();
-                    }
-                }
-
-                Debug.DrawRay(rayStartPos, spiderObj.transform.up * raySurfaceCheckDist, Color.red);
-                Debug.DrawRay(rayStartPos, -spiderObj.transform.up * raySurfaceCheckDist, Color.red);
-                Debug.DrawRay(rayStartPos, spiderObj.transform.right * raySurfaceCheckDist, Color.red);
-                Debug.DrawRay(rayStartPos, -spiderObj.transform.right * raySurfaceCheckDist, Color.red);
-
-            }
-
-
-        }
-
+           
     }
 
-
-
-    private void setOnAir() 
-    {
-        Vector3 rayStartPos = new Vector3(spiderObj.transform.position.x, spiderObj.transform.position.y + 0.1f, spiderObj.transform.position.z);
-        onAir = true;
-        spiderAnimCont.SetStarterPosBeforeAir();
-        rb.isKinematic = false;
-        transform.rotation = new Quaternion( 0.0f,transform.rotation.y, transform.rotation.z, transform.rotation.w);
-    }
-
-    private void setOnFloor() 
-    {
-        Vector3 rayStartPos = new Vector3(spiderObj.transform.position.x, spiderObj.transform.position.y + 0.1f, spiderObj.transform.position.z);
-        onAir = false;
-        Debug.DrawRay(rayStartPos, -spiderObj.transform.up * raySurfaceCheckDist, Color.green);
-        rb.isKinematic = true;
-
-    }
-
-    public bool isOnAir()
-    {
-
-        return onAir;
-    }
+    
 
 }

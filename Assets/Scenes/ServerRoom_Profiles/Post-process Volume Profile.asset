@@ -18,10 +18,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 7.02
+    value: 6
   threshold:
     overrideState: 1
-    value: 0.96
+    value: 0.99
   softKnee:
     overrideState: 0
     value: 0.5
@@ -172,10 +172,10 @@ MonoBehaviour:
     value: {x: 1, y: 1, z: 1, w: 0.023419203}
   gamma:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0.16393445}
+    value: {x: 1, y: 1, z: 1, w: 0.121153705}
   gain:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0.46838403}
+    value: {x: 1, y: 1, z: 1, w: 0.12613803}
   masterCurve:
     overrideState: 0
     value:
@@ -1394,13 +1394,13 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 2.6
+    value: 3.44
   aperture:
     overrideState: 1
-    value: 6
+    value: 7.8
   focalLength:
     overrideState: 1
-    value: 35
+    value: 14
   kernelSize:
     overrideState: 1
     value: 0
@@ -1480,10 +1480,10 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.349
+    value: 0.16
   smoothness:
     overrideState: 1
-    value: 0.264
+    value: 0.413
   roundness:
     overrideState: 0
     value: 1

@@ -59,8 +59,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
     void FixedUpdate()
     { 
-        if(!moveCont.isOnAir())
-        {
+        
 
 
             velocity = transform.position - lastBodyPos;
@@ -128,14 +127,6 @@ public class SpiderProceduralAnimation : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(transform.parent.forward, up);
                 lastBodyUp = transform.up;
             }
-        }
-        else
-        {
-            for (int i = 0; i < legTargets.Length; i++)
-            {
-                legTargets[i].position = starterPosAir[i];
-            }
-        }
     }
 
     private void OnDrawGizmosSelected()
@@ -186,11 +177,4 @@ public class SpiderProceduralAnimation : MonoBehaviour
         legMoving[0] = false;
     }
 
-    public void SetStarterPosBeforeAir() 
-    {
-        for (int i = 0; i < starterPosAir.Length; i++)
-        {
-            starterPosAir[i] = legTargets[i].position;
-        }
-    }
 }
