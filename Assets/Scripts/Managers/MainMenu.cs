@@ -37,6 +37,7 @@ public class MainMenu : MonoBehaviour
         TransitionController.ChangeScene();
         getDark = true;
         nextScene = "ServerRoom";
+        TransitionController.ActiveLoadIcon();
     }
     public void goTutorial(){
         TransitionController.ChangeScene();
@@ -52,6 +53,7 @@ public class MainMenu : MonoBehaviour
         TransitionController.ChangeScene();
         getDark = true;
         nextScene = "MainMenu";
+        TransitionController.ActiveLoadIcon();
     }
 
     public void goCredits()
@@ -59,6 +61,7 @@ public class MainMenu : MonoBehaviour
         TransitionController.ChangeScene();
         getDark = true;
         nextScene = "WinScene";
+        TransitionController.ActiveLoadIcon();
     }
     public void ExitGame()
     {

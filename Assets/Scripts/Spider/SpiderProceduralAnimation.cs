@@ -31,7 +31,8 @@ public class SpiderProceduralAnimation : MonoBehaviour
     private Vector3 velocity;
     private Vector3 lastVelocity;
     private Vector3 lastBodyPos;
-    private Vector3[] starterPosAir;
+    private Vector3 starterpos;
+    private Quaternion starterRot;
 
     private SpiderController moveCont;
 
@@ -41,7 +42,6 @@ public class SpiderProceduralAnimation : MonoBehaviour
         lastBodyUp = transform.up;
 
         nbLegs = legTargets.Length;
-        starterPosAir = new Vector3[nbLegs];
         defaultLegPositions = new Vector3[nbLegs];
         lastLegPositions = new Vector3[nbLegs];
         legMoving = new bool[nbLegs];
@@ -55,78 +55,86 @@ public class SpiderProceduralAnimation : MonoBehaviour
         Cursor.visible = false;
 
         moveCont = GetComponentInParent<SpiderController>();
+        starterpos = transform.position;
+        starterRot = transform.rotation;
+    }
+
+    void Update() {
+        if (Input.GetKey(KeyCode.P))
+        {
+            transform.position = starterpos;
+            transform.rotation = starterRot;
+        }
     }
 
     void FixedUpdate()
     { 
         
+        velocity = transform.position - lastBodyPos;
+        velocity = (velocity + smoothness * lastVelocity) / (smoothness + 1f);
 
+        if (velocity.magnitude < 0.000025f)
+        {
+            velocity = lastVelocity;
+        }
+        else
+        {
+            lastVelocity = velocity;
+        }
 
-            velocity = transform.position - lastBodyPos;
-            velocity = (velocity + smoothness * lastVelocity) / (smoothness + 1f);
+        Vector3[] desiredPositions = new Vector3[nbLegs];
+        int indexToMove = -1;
+        float maxDistance = stepSize;
+        for (int i = 0; i < nbLegs; ++i)
+        {
+            desiredPositions[i] = transform.TransformPoint(defaultLegPositions[i]);
 
-            if (velocity.magnitude < 0.000025f)
+            float distance = Vector3.ProjectOnPlane(desiredPositions[i] + velocity * velocityMultiplier - lastLegPositions[i], transform.up).magnitude;
+            if (distance > maxDistance)
             {
-                velocity = lastVelocity;
+                maxDistance = distance;
+                indexToMove = i;
+            }
+        }
+
+        for (int i = 0; i < nbLegs; ++i)
+        {
+            if (i != indexToMove)
+            {
+                legTargets[i].position = lastLegPositions[i];
+            }
+        }
+
+        if (indexToMove != -1 && !legMoving[0])
+        {
+            Vector3 targetPoint = desiredPositions[indexToMove] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPositions[indexToMove] - legTargets[indexToMove].position) + velocity * velocityMultiplier;
+
+            Vector3[] positionAndNormalFwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange, (transform.parent.up - velocity * 75).normalized);
+            Vector3[] positionAndNormalBwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange * (1f + velocity.magnitude), (transform.parent.up + velocity * 75).normalized);
+
+            legMoving[0] = true;
+
+            if (positionAndNormalFwd[1] == Vector3.zero)
+            {
+                StartCoroutine(PerformStep(indexToMove, positionAndNormalBwd[0]));
             }
             else
             {
-                lastVelocity = velocity;
+                StartCoroutine(PerformStep(indexToMove, positionAndNormalFwd[0]));
             }
+        }
 
-            Vector3[] desiredPositions = new Vector3[nbLegs];
-            int indexToMove = -1;
-            float maxDistance = stepSize;
-            for (int i = 0; i < nbLegs; ++i)
-            {
-                desiredPositions[i] = transform.TransformPoint(defaultLegPositions[i]);
-
-                float distance = Vector3.ProjectOnPlane(desiredPositions[i] + velocity * velocityMultiplier - lastLegPositions[i], transform.up).magnitude;
-                if (distance > maxDistance)
-                {
-                    maxDistance = distance;
-                    indexToMove = i;
-                }
-            }
-
-            for (int i = 0; i < nbLegs; ++i)
-            {
-                if (i != indexToMove)
-                {
-                    legTargets[i].position = lastLegPositions[i];
-                }
-            }
-
-            if (indexToMove != -1 && !legMoving[0])
-            {
-                Vector3 targetPoint = desiredPositions[indexToMove] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPositions[indexToMove] - legTargets[indexToMove].position) + velocity * velocityMultiplier;
-
-                Vector3[] positionAndNormalFwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange, (transform.parent.up - velocity * 75).normalized);
-                Vector3[] positionAndNormalBwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange * (1f + velocity.magnitude), (transform.parent.up + velocity * 75).normalized);
-
-                legMoving[0] = true;
-
-                if (positionAndNormalFwd[1] == Vector3.zero)
-                {
-                    StartCoroutine(PerformStep(indexToMove, positionAndNormalBwd[0]));
-                }
-                else
-                {
-                    StartCoroutine(PerformStep(indexToMove, positionAndNormalFwd[0]));
-                }
-            }
-
-            lastBodyPos = transform.position;
-            if (nbLegs > 3)
-            {
-                Vector3 v1 = legTargets[0].position - legTargets[1].position;
-                Vector3 v2 = legTargets[2].position - legTargets[3].position;
-                Vector3 normal = Vector3.Cross(v1, v2).normalized;
-                Vector3 up = Vector3.Lerp(lastBodyUp, normal, 1f / (float)(smoothness + 1));
-                transform.up = up;
-                transform.rotation = Quaternion.LookRotation(transform.parent.forward, up);
-                lastBodyUp = transform.up;
-            }
+        lastBodyPos = transform.position;
+        if (nbLegs > 3)
+        {
+            Vector3 v1 = legTargets[0].position - legTargets[1].position;
+            Vector3 v2 = legTargets[2].position - legTargets[3].position;
+            Vector3 normal = Vector3.Cross(v1, v2).normalized;
+            Vector3 up = Vector3.Lerp(lastBodyUp, normal, 1f / (float)(smoothness + 1));
+            transform.up = up;
+            transform.rotation = Quaternion.LookRotation(transform.parent.forward, up);
+            lastBodyUp = transform.up;
+        }
     }
 
     private void OnDrawGizmosSelected()

@@ -28,10 +28,9 @@ public class SpiderController : MonoBehaviour
     [SerializeField]
     private float middleRaysOffset;
     [Header("Extern Objects")]
-    [SerializeField]
-    private Transform[] legsPos;
-    [SerializeField]
-    LayerMask scalableMask;
+    //[SerializeField]
+    //private Transform[] legsPos;
+
 
     private float valueY;
     private float valueX;
@@ -46,9 +45,6 @@ public class SpiderController : MonoBehaviour
     private Quaternion starterRot;
     private Quaternion lastRot;
     private Vector3[] pn;
-    private Rigidbody rb;
-    private float timeWaitedAir = 0;
-
 
 
     private SpiderProceduralAnimation spiderAnimCont;
@@ -74,7 +70,6 @@ public class SpiderController : MonoBehaviour
 
         return res;
     }
- 
     
     Vector3[] GetClosestPointIco(Vector3 point, Vector3 up, float halfRange)
     {
@@ -102,7 +97,6 @@ public class SpiderController : MonoBehaviour
         return res;
     }
  
-
     static Vector3[] GetClosestPoint(Vector3 point, Vector3 forward, Vector3 up, float halfRange, float eccentricity, float offset1, float offset2, float offset3, int rayAmount)
     {
         Vector3[] res = new Vector3[2] { point, up };
@@ -157,6 +151,7 @@ public class SpiderController : MonoBehaviour
         return res;
     }
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -165,7 +160,6 @@ public class SpiderController : MonoBehaviour
         upward = transform.up;
         lastRot = transform.rotation;
         spiderAnimCont = GetComponentInChildren<SpiderProceduralAnimation>();
-        rb = GetComponent<Rigidbody>();
         starterpos = transform.position;
         starterRot = transform.rotation;
     }
