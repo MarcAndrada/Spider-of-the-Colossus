@@ -8,19 +8,19 @@ namespace SlimUI.ModernMenu
 	{
 		public ThemeEditor themeController;
 
-		protected virtual void OnSkinUI()
+		/*protected virtual void OnSkinUI()
 		{
 
-		}
+		}*/
 
 		public virtual void Awake()
 		{
-			OnSkinUI();
+			//OnSkinUI();
 		}
 
 		public virtual void Update()
 		{
-			OnSkinUI();
+			//OnSkinUI();
 		}
 	}
 }

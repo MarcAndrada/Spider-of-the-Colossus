@@ -195,7 +195,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -797,11 +797,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 328
+      value: 829
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -161
+      value: -416
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -814,6 +814,30 @@ PrefabInstance:
     - target: {fileID: 22400000, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400002, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400002, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400004, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400004, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400006, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400006, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae0b9d5b206419b47adf2fce3a1d4d37, type: 3}

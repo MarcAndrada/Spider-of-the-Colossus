@@ -13,8 +13,8 @@ namespace SlimUI.ModernMenu{
 		public bool hasImage = false;
 		public bool isText = false;
 
-		protected override void OnSkinUI(){
-			base.OnSkinUI();
+		/*protected override void OnSkinUI(){
+			/*base.OnSkinUI();
 
 			if(hasImage){
 				image = GetComponent<Image>();
@@ -26,6 +26,6 @@ namespace SlimUI.ModernMenu{
 			if(isText){
 				message.GetComponent<TextMeshPro>().color = themeController.textColor;
 			}
-		}
+		}*/
 	}
 }
