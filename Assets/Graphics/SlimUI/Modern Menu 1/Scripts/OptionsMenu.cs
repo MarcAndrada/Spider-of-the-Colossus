@@ -9,16 +9,16 @@ namespace SlimUI.ModernMenu{
 		public enum Platform {Desktop, Mobile};
 		public Platform platform;
 		// toggle buttons
-		[Header("MOBILE SETTINGS")]
+		/*[Header("MOBILE SETTINGS")]
 		public GameObject mobileSFXtext;
 		public GameObject mobileMusictext;
 		public GameObject mobileShadowofftextLINE;
 		public GameObject mobileShadowlowtextLINE;
 		public GameObject mobileShadowhightextLINE;
-
+		*/
 		[Header("VIDEO SETTINGS")]
 		public GameObject fullscreentext;
-		public GameObject ambientocclusiontext;
+		/*public GameObject ambientocclusiontext;
 		public GameObject shadowofftextLINE;
 		public GameObject shadowlowtextLINE;
 		public GameObject shadowhightextLINE;
@@ -28,6 +28,7 @@ namespace SlimUI.ModernMenu{
 		public GameObject aa8xtextLINE;
 		public GameObject vsynctext;
 		public GameObject motionblurtext;
+		*/
 		public GameObject texturelowtextLINE;
 		public GameObject texturemedtextLINE;
 		public GameObject texturehightextLINE;
@@ -99,7 +100,7 @@ namespace SlimUI.ModernMenu{
 			}
 
 			// check shadow distance/enabled
-			if(platform == Platform.Desktop){
+			/*if (platform == Platform.Desktop){
 				if(PlayerPrefs.GetInt("Shadows") == 0){
 					QualitySettings.shadowCascades = 0;
 					QualitySettings.shadowDistance = 0;
@@ -143,10 +144,11 @@ namespace SlimUI.ModernMenu{
 					mobileShadowlowtextLINE.gameObject.SetActive(false);
 					mobileShadowhightextLINE.gameObject.SetActive(true);
 				}
-			}
-
+			}*/
+			
 
 			// check vsync
+			/*
 			if(QualitySettings.vSyncCount == 0){
 				vsynctext.GetComponent<TMP_Text>().text = "off";
 			}
@@ -196,7 +198,7 @@ namespace SlimUI.ModernMenu{
 				texturelowtextLINE.gameObject.SetActive(false);
 				texturemedtextLINE.gameObject.SetActive(false);
 				texturehightextLINE.gameObject.SetActive(true);
-			}
+			}*/
 		}
 
 		public void  Update (){
@@ -247,7 +249,7 @@ namespace SlimUI.ModernMenu{
 		}
 
 		// the playerprefs variable that is checked to enable mobile sfx while in game
-		public void MobileSFXMute (){
+		/*public void MobileSFXMute (){
 			if(PlayerPrefs.GetInt("Mobile_MuteSfx")==0){
 				PlayerPrefs.SetInt("Mobile_MuteSfx",1);
 				mobileSFXtext.GetComponent<TMP_Text>().text = "on";
@@ -294,7 +296,7 @@ namespace SlimUI.ModernMenu{
 			PlayerPrefs.SetInt("NormalDifficulty",0);
 			PlayerPrefs.SetInt("HardCoreDifficulty",1);
 		}
-
+		/*
 		public void  ShadowsOff (){
 			PlayerPrefs.SetInt("Shadows",0);
 			QualitySettings.shadowCascades = 0;
@@ -347,9 +349,9 @@ namespace SlimUI.ModernMenu{
 			mobileShadowofftextLINE.gameObject.SetActive(false);
 			mobileShadowlowtextLINE.gameObject.SetActive(false);
 			mobileShadowhightextLINE.gameObject.SetActive(true);
-		}
+		}*/
 
-		public void vsync (){
+		/*public void vsync (){
 			if(QualitySettings.vSyncCount == 0){
 				QualitySettings.vSyncCount = 1;
 				vsynctext.GetComponent<TMP_Text>().text = "on";
@@ -358,7 +360,7 @@ namespace SlimUI.ModernMenu{
 				QualitySettings.vSyncCount = 0;
 				vsynctext.GetComponent<TMP_Text>().text = "off";
 			}
-		}
+		}*/
 
 		public void  InvertMouse (){
 			if(PlayerPrefs.GetInt("Inverted")==0){
@@ -371,7 +373,7 @@ namespace SlimUI.ModernMenu{
 			}
 		}
 
-		public void  MotionBlur (){
+		/*public void  MotionBlur (){
 			if(PlayerPrefs.GetInt("MotionBlur")==0){
 				PlayerPrefs.SetInt("MotionBlur",1);
 				motionblurtext.GetComponent<TMP_Text>().text = "on";
@@ -391,7 +393,7 @@ namespace SlimUI.ModernMenu{
 				PlayerPrefs.SetInt("AmbientOcclusion",0);
 				ambientocclusiontext.GetComponent<TMP_Text>().text = "off";
 			}
-		}
+		}*/
 
 		public void  CameraEffects (){
 			if(PlayerPrefs.GetInt("CameraEffects")==0){
@@ -404,7 +406,7 @@ namespace SlimUI.ModernMenu{
 			}
 		}
 
-		public void  TexturesLow (){
+		/*public void  TexturesLow (){
 			PlayerPrefs.SetInt("Textures",0);
 			QualitySettings.masterTextureLimit = 2;
 			texturelowtextLINE.gameObject.SetActive(true);
@@ -426,6 +428,6 @@ namespace SlimUI.ModernMenu{
 			texturelowtextLINE.gameObject.SetActive(false);
 			texturemedtextLINE.gameObject.SetActive(false);
 			texturehightextLINE.gameObject.SetActive(true);
-		}
+		}*/
 	}
 }

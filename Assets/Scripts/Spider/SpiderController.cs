@@ -22,6 +22,8 @@ public class SpiderController : MonoBehaviour
     [SerializeField]
     private float raysEccentricity;
     [SerializeField]
+    private float furthestRaysOffset;
+    [SerializeField]
     private float outerRaysOffset;
     [SerializeField]
     private float innerRaysOffset;
@@ -97,7 +99,7 @@ public class SpiderController : MonoBehaviour
         return res;
     }
  
-    static Vector3[] GetClosestPoint(Vector3 point, Vector3 forward, Vector3 up, float halfRange, float eccentricity, float offset1, float offset2, float offset3, int rayAmount)
+    static Vector3[] GetClosestPoint(Vector3 point, Vector3 forward, Vector3 up, float halfRange, float eccentricity, float offset1, float offset2, float offset3,float offset4, int rayAmount)
     {
         Vector3[] res = new Vector3[2] { point, up };
         Vector3 right = Vector3.Cross(up, forward);
@@ -118,7 +120,7 @@ public class SpiderController : MonoBehaviour
             RaycastHit hit;
             Vector3 largener = Vector3.ProjectOnPlane(dir, up);
             Ray ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset1 / 100f, dir);
-            //Debug.DrawRay(ray.origin, ray.direction, Color.gray);
+            Debug.DrawRay(ray.origin, ray.direction, Color.gray);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
@@ -136,8 +138,8 @@ public class SpiderController : MonoBehaviour
                 positionAmount += 1;
             }
 
-            ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset3 / 100f, dir);
-            //Debug.DrawRay(ray.origin, ray.direction, Color.green);
+            ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset3 / 100, dir);
+            Debug.DrawRay(ray.origin, ray.direction, Color.green);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
@@ -145,6 +147,17 @@ public class SpiderController : MonoBehaviour
                 normalAmount += 1;
                 positionAmount += 1;
             }
+
+            //ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset4 / 100, dir);
+            //Debug.DrawRay(ray.origin, ray.direction, Color.red);
+            //if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
+            //{
+            //    res[0] += hit.point;
+            //    res[1] += hit.normal;
+            //    normalAmount += 1;
+            //    positionAmount += 1;
+            //}
+
         }
         res[0] /= positionAmount;
         res[1] /= normalAmount;
@@ -218,11 +231,11 @@ public class SpiderController : MonoBehaviour
 
             if (valueX != 0 || valueY != 0)
             {
-                pn = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, 0.1f, 30, -30,0, 5);
+                pn = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, 0.1f, 30, -30,0,0, 5);
 
                 upward = pn[1];
 
-                Vector3[] pos = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, raysEccentricity, innerRaysOffset, outerRaysOffset, middleRaysOffset, raysNb);
+                Vector3[] pos = GetClosestPoint(transform.position, transform.forward, transform.up, 0.5f, raysEccentricity, innerRaysOffset, outerRaysOffset, middleRaysOffset, furthestRaysOffset, raysNb);
                 transform.position = Vector3.Lerp(lastPosition, pos[0], 1f / (0.5f + smoothness));
                 if (valueY == -1)
                 {
