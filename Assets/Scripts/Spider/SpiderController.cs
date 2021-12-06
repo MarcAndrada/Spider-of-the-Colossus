@@ -171,8 +171,7 @@ public class SpiderController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+       
         velocity = new Vector3();
         forward = transform.forward;
         upward = transform.up;
