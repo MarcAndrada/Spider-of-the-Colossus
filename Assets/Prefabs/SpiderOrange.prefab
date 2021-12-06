@@ -501,13 +501,15 @@ MonoBehaviour:
   - {fileID: 4618185809673311385}
   - {fileID: 2427216380074942495}
   - {fileID: 4771232818767857271}
-  stepSize: 0.12
   smoothness: 6
+  stepSize: 0.12
   stepHeight: 0.2
-  sphereCastRadius: 0.125
-  bodyOrientation: 1
+  sphereCastRadius: 0.08
   velocityMultiplier: 15
   raycastRange: 1.5
+  scalableMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &6878808268160038517
 BoxCollider:
   m_ObjectHideFlags: 0

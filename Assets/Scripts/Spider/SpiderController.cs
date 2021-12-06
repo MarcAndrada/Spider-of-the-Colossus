@@ -32,6 +32,9 @@ public class SpiderController : MonoBehaviour
     [Header("Extern Objects")]
     //[SerializeField]
     //private Transform[] legsPos;
+    [SerializeField]
+    private int scalableMask;
+
 
 
     private float valueY;
@@ -168,6 +171,8 @@ public class SpiderController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         velocity = new Vector3();
         forward = transform.forward;
         upward = transform.up;

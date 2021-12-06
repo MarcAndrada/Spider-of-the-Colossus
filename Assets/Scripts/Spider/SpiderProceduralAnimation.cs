@@ -65,6 +65,13 @@ public class SpiderProceduralAnimation : MonoBehaviour
             transform.position = starterpos;
             transform.rotation = starterRot;
         }
+        
+        transform.localPosition = new Vector3(0, 0, 0);
+        if (transform.localEulerAngles.z > 90 || transform.localEulerAngles.z < -90)
+        {
+            transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+
     }
 
     void FixedUpdate()
@@ -135,6 +142,9 @@ public class SpiderProceduralAnimation : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(transform.parent.forward, up);
             lastBodyUp = transform.up;
         }
+
+
+       
     }
 
     private void OnDrawGizmosSelected()
