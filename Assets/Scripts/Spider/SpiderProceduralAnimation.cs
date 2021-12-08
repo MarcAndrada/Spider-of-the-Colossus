@@ -67,7 +67,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
         }
         
         transform.localPosition = new Vector3(0, 0, 0);
-        if (transform.localEulerAngles.z > 90 || transform.localEulerAngles.z < -90)
+        if (transform.localEulerAngles.z > 70 || transform.localEulerAngles.z < -70)
         {
             transform.localEulerAngles = new Vector3(0, 0, 0);
         }

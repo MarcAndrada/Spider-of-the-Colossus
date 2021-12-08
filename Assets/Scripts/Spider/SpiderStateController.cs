@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SpiderStateController : MonoBehaviour
 {
@@ -59,6 +60,11 @@ public class SpiderStateController : MonoBehaviour
         {
             isObserved = true;
         }
+
+        if (other.gameObject.tag == "HackingPoint")
+        {
+            isObserved = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -74,6 +80,7 @@ public class SpiderStateController : MonoBehaviour
         canMove = false;
         isInvisible = true;
         SpiderModel.material = invisibleMaterial;
+        
 
     }
 
@@ -170,6 +177,13 @@ public class SpiderStateController : MonoBehaviour
         }
     }
 
+    private void NearHackingPoint() {
+        
+    }
+    private void ExitHackingPoint()
+    {
+
+    }
 
 
 

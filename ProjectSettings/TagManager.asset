@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NotBlockCamera
   - Enemy
+  - HackingPoint
   layers:
   - Default
   - TransparentFX
