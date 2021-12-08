@@ -32,8 +32,7 @@ public class SpiderController : MonoBehaviour
     [Header("Extern Objects")]
     //[SerializeField]
     //private Transform[] legsPos;
-    [SerializeField]
-    private int scalableMask;
+
 
 
 

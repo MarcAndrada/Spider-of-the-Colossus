@@ -8,9 +8,9 @@ public class SpiderStateController : MonoBehaviour
 {
     [Header("HUD")]
     [SerializeField]
-    Slider invisivilityBar;
+    private Slider invisivilityBar;
     [SerializeField]
-    GameObject alertBar;
+    private GameObject alertBar;
     [SerializeField]
     private float invisibleConsumeSpeed;
     [SerializeField]
@@ -26,7 +26,6 @@ public class SpiderStateController : MonoBehaviour
     [SerializeField]
     private Material invisibleMaterial;
 
-
     private bool canMove = true;
     private bool isInvisible = false;
     private float currentInvisibleTime = 1;
@@ -34,6 +33,10 @@ public class SpiderStateController : MonoBehaviour
     private float warnLevel;
     private float timeToWaitAlertDisapear = 1.5f;
     private float timeWaitedAlertDisapear = 0;
+    [SerializeField]
+    private bool onHackingZone = false;
+    [SerializeField]
+    private bool isHacking = false;
 
     private SpiderController spiderMove;
     private Slider alertBarSlider;
@@ -52,6 +55,7 @@ public class SpiderStateController : MonoBehaviour
         CheckMovment();
         CheckIfObserved();
         SetSliderHudValues();
+        CheckHackZone();
     }
 
     private void OnTriggerStay(Collider other)
@@ -63,7 +67,7 @@ public class SpiderStateController : MonoBehaviour
 
         if (other.gameObject.tag == "HackingPoint")
         {
-            isObserved = true;
+            onHackingZone = true;
         }
     }
 
@@ -73,11 +77,15 @@ public class SpiderStateController : MonoBehaviour
         {
             isObserved = false;
         }
+
+        if (other.gameObject.tag == "HackingPoint")
+        {
+            onHackingZone = false;
+        }
     }
 
     private void TurnInvisible() {
-        //Volverse Invisible y bloquear movimiento
-        canMove = false;
+        //Volverse Invisible
         isInvisible = true;
         SpiderModel.material = invisibleMaterial;
         
@@ -85,8 +93,7 @@ public class SpiderStateController : MonoBehaviour
     }
 
     private void TurnVisible() {
-        //Volverse visible y desbloquear movimiento
-        canMove = true;
+        //Volverse visible
         isInvisible = false;
         SpiderModel.material = normalMaterial;
     }
@@ -166,7 +173,16 @@ public class SpiderStateController : MonoBehaviour
     }
 
     private void CheckMovment() {
-        
+
+        if (!isInvisible && !isHacking)
+        {
+            canMove = true;
+        }
+        else
+        {
+            canMove = false;
+        }
+
         if (canMove && !spiderMove.enabled)
         {
             spiderMove.enabled = true;
@@ -177,14 +193,33 @@ public class SpiderStateController : MonoBehaviour
         }
     }
 
-    private void NearHackingPoint() {
-        
-    }
-    private void ExitHackingPoint()
-    {
+    private void CheckHackZone() {
 
-    }
+        if (onHackingZone)
+        {
+            //hacer visible el boton de E
+            if (Input.GetButton("Hack"))
+            {
+                //Bloquear movimiento
+                isHacking = true;
+                //Hacer que un slider con una barra de hackeo aumente
+                //
+            }
+            else
+            {
+                //cambiar el estado de isHacking
+                isHacking = false;
+            }
 
+        }
+        else
+        {
+            //Esconder Boton de E
+            //cambiar el estado de isHacking
+            isHacking = false;
+
+        }
+    }
 
 
     private void MissionFailed() {
