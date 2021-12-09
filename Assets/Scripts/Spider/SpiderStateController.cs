@@ -12,6 +12,9 @@ public class SpiderStateController : MonoBehaviour
     [SerializeField]
     private GameObject alertBar;
     [SerializeField]
+    private GameObject hackingBar;
+    [Header("Stats")]
+    [SerializeField]
     private float invisibleConsumeSpeed;
     [SerializeField]
     private float invisibleReloadSpeed;
@@ -19,6 +22,9 @@ public class SpiderStateController : MonoBehaviour
     private float warnSpeed;
     [SerializeField]
     private float unwarnedSpeed;
+    [SerializeField]
+    private float hackingSpeed;
+    [Header("Invisibility Materials")]
     [SerializeField]
     private SkinnedMeshRenderer SpiderModel;
     [SerializeField]
@@ -33,18 +39,23 @@ public class SpiderStateController : MonoBehaviour
     private float warnLevel;
     private float timeToWaitAlertDisapear = 1.5f;
     private float timeWaitedAlertDisapear = 0;
-    [SerializeField]
     private bool onHackingZone = false;
-    [SerializeField]
     private bool isHacking = false;
+    private float hackingProgress = 0;
+    private float timeToWaitHBDisapear = 1.5f;
+    private float timeWaitedHBDisapear = 0;
 
     private SpiderController spiderMove;
     private Slider alertBarSlider;
+    private GameObject lastHackingPoint;
+    private Slider hackingBarSlider;
+
     // Start is called before the first frame update
     void Start()
     {
         spiderMove = GetComponent<SpiderController>();
         alertBarSlider = alertBar.GetComponent<Slider>();
+        hackingBarSlider = hackingBar.GetComponent<Slider>();
     }
 
     // Update is called once per frame
@@ -54,7 +65,7 @@ public class SpiderStateController : MonoBehaviour
         CheckIfInvisible();
         CheckMovment();
         CheckIfObserved();
-        SetSliderHudValues();
+        SetHudValues();
         CheckHackZone();
     }
 
@@ -68,6 +79,7 @@ public class SpiderStateController : MonoBehaviour
         if (other.gameObject.tag == "HackingPoint")
         {
             onHackingZone = true;
+            lastHackingPoint = other.gameObject;
         }
     }
 
@@ -133,9 +145,12 @@ public class SpiderStateController : MonoBehaviour
 
     }
 
-    public void SetSliderHudValues() {
+    public void SetHudValues() {
         invisivilityBar.value = currentInvisibleTime;
         alertBarSlider.value = warnLevel;
+        //Hacer que un slider con una barra de hackeo aumente
+        hackingBarSlider.value = hackingProgress;
+        
     }
 
     private void CheckIfObserved() {
@@ -144,7 +159,7 @@ public class SpiderStateController : MonoBehaviour
             timeWaitedAlertDisapear = 0;
             alertBar.SetActive(true);
             warnLevel += warnSpeed / 100 * Time.deltaTime;
-            if (currentInvisibleTime >= 1)
+            if (warnLevel >= 1)
             {
                 MissionFailed();
             }
@@ -197,18 +212,25 @@ public class SpiderStateController : MonoBehaviour
 
         if (onHackingZone)
         {
+            timeWaitedHBDisapear = 0;
             //hacer visible el boton de E
             if (Input.GetButton("Hack"))
             {
+                hackingBar.SetActive(true);
                 //Bloquear movimiento
                 isHacking = true;
                 //Hacer que un slider con una barra de hackeo aumente
-                //
+                hackingProgress += hackingSpeed / 100 * Time.deltaTime;
+                if (hackingProgress >= 1)
+                {
+                    HackComplete();
+                }
             }
             else
             {
                 //cambiar el estado de isHacking
                 isHacking = false;
+                hackingProgress = 0;
             }
 
         }
@@ -217,10 +239,26 @@ public class SpiderStateController : MonoBehaviour
             //Esconder Boton de E
             //cambiar el estado de isHacking
             isHacking = false;
+            hackingProgress = 0;
 
+            if (hackingBar.activeInHierarchy)
+            {
+                timeWaitedHBDisapear += Time.deltaTime;
+                if (timeWaitedHBDisapear >= timeToWaitHBDisapear)
+                {
+                    hackingBar.SetActive(false);
+                    timeWaitedHBDisapear = 0;
+                }
+            }
         }
     }
 
+    private void HackComplete() {
+
+        Destroy(lastHackingPoint);
+        onHackingZone = false;
+        //sumar 1 en el contador de puntos hackeados
+    }
 
     private void MissionFailed() {
     
