@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9081672833140729814}
   m_Layer: 2
   m_Name: Point Light
-  m_TagString: HackingPoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 9081672833582203125}
   m_Layer: 2
   m_Name: Sphere
-  m_TagString: HackingPoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

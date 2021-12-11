@@ -13,6 +13,10 @@ public class SpiderStateController : MonoBehaviour
     private GameObject alertBar;
     [SerializeField]
     private GameObject hackingBar;
+    [SerializeField]
+    private Text NeededHPoints;
+    [SerializeField]
+    private Text hackedPointsT;
     [Header("Stats")]
     [SerializeField]
     private float invisibleConsumeSpeed;
@@ -44,6 +48,7 @@ public class SpiderStateController : MonoBehaviour
     private float hackingProgress = 0;
     private float timeToWaitHBDisapear = 1.5f;
     private float timeWaitedHBDisapear = 0;
+    private int hackedPoints = 0;
 
     private SpiderController spiderMove;
     private Slider alertBarSlider;
@@ -56,6 +61,8 @@ public class SpiderStateController : MonoBehaviour
         spiderMove = GetComponent<SpiderController>();
         alertBarSlider = alertBar.GetComponent<Slider>();
         hackingBarSlider = hackingBar.GetComponent<Slider>();
+        GameObject[] hackingPointsScene = GameObject.FindGameObjectsWithTag("HackingPoint");
+        NeededHPoints.text = hackingPointsScene.Length.ToString();
     }
 
     // Update is called once per frame
@@ -150,7 +157,8 @@ public class SpiderStateController : MonoBehaviour
         alertBarSlider.value = warnLevel;
         //Hacer que un slider con una barra de hackeo aumente
         hackingBarSlider.value = hackingProgress;
-        
+        hackedPointsT.text = hackedPoints.ToString();
+
     }
 
     private void CheckIfObserved() {
@@ -257,6 +265,7 @@ public class SpiderStateController : MonoBehaviour
 
         Destroy(lastHackingPoint);
         onHackingZone = false;
+        hackedPoints++;
         //sumar 1 en el contador de puntos hackeados
     }
 

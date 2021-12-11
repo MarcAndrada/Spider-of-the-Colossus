@@ -38,6 +38,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 192905582990719573}
     m_Modifications:
+    - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_Range
+      value: 19.615938
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_Intensity
+      value: 61.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_SpotAngle
+      value: 19.411942
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539845823, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539845823, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.376
+      objectReference: {fileID: 0}
     - target: {fileID: 7094443401850242932, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
       propertyPath: m_RootOrder
       value: 0
