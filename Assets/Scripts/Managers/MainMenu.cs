@@ -11,7 +11,8 @@ public class MainMenu : MonoBehaviour
     private float TimeToWait = 1500;
     private float TimeWaited;
     private string nextScene;
-
+    private float EngameTimeToWait = 1.5f;
+    private float EngameTimeWaited = 0;
 
     private void Update()
     {
@@ -72,5 +73,19 @@ public class MainMenu : MonoBehaviour
         #endif
     }
 
-
+    public void MissionComplete() {
+        Time.timeScale = 1;
+        TransitionController.ActiveLoadIcon();
+        EngameTimeWaited += Time.deltaTime;
+        if (EngameTimeWaited >= EngameTimeToWait)
+        {
+            TransitionController.ChangeScene();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            getDark = true;
+            nextScene = "MainMenu";
+            EngameTimeWaited = 0;
+        }
+        
+    }
 }

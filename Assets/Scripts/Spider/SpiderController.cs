@@ -257,6 +257,18 @@ public class SpiderController : MonoBehaviour
            
     }
 
-    
+    public void ResetStarterPos() {
+        starterpos = transform.position;
+        starterRot = transform.rotation;
+    }
+
+    public void RestartPosition() {
+        for (int i = 0; i < 200; i++)
+        {
+            transform.position = starterpos;
+            transform.rotation = starterRot;
+        }
+
+    }
 
 }

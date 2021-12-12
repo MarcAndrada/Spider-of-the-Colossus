@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using SensorToolkit;
 
 public class EnemyController : MonoBehaviour
 {
@@ -17,16 +18,23 @@ public class EnemyController : MonoBehaviour
     private float Distance;
 
     private int itinerator;
-    private bool stopMove;
+    private bool checkingZone;
     private float timeStoped = 0;
     private bool[] stoppedHere;
+    private bool whatchingPlayer = false;
 
     private NavMeshAgent agent;
     private Vector3 nextPointToGo;
+    private TriggerSensor sensorCone;
+    private GameObject Player;
+    private SpiderStateController spiderCont;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        sensorCone = GetComponentInChildren<TriggerSensor>();
+        Player = GameObject.FindGameObjectWithTag("Player");
+        spiderCont = Player.GetComponent<SpiderStateController>();
         itinerator = 0;
         stoppedHere = new bool[placeToStop.Length];
         for (int i = 0; i < placeToStop.Length; i++)
@@ -42,12 +50,12 @@ public class EnemyController : MonoBehaviour
         Distance = Vector3.Distance(nextPointToGo, transform.position);
         SetNewPosMove();
         FreezeTimer();
-
+        CheckIfSeeEnemy();
     }
 
     private void FixedUpdate()
     {
-        CheckIfCanMovee();
+        CheckIfCanMove();
 
     }
 
@@ -70,7 +78,7 @@ public class EnemyController : MonoBehaviour
                 itinerator = 0;
 
             }
-            else if (!stopMove)
+            else if (!checkingZone)
             {
                 //Aumentamos el accumulador 
 
@@ -82,7 +90,7 @@ public class EnemyController : MonoBehaviour
             {
                 if (itinerator == placeToStop[i] && !stoppedHere[i])
                 {
-                    stopMove = true;
+                    checkingZone = true;
                     stoppedHere[i] = true;
                 }
             }
@@ -95,7 +103,7 @@ public class EnemyController : MonoBehaviour
     }
 
     private void FreezeTimer() {
-        if (stopMove)
+        if (checkingZone)
         {
             timeStoped += Time.deltaTime;
         }
@@ -103,14 +111,14 @@ public class EnemyController : MonoBehaviour
         //Timer para saber cuando ha de volver a mover
         if (timeStoped >= timeToWaitStoped)
         {
-            stopMove = false;
+            checkingZone = false;
             timeStoped = 0;
             agent.isStopped = false;
         }
     }
 
-    private void CheckIfCanMovee() {
-        if (!stopMove)
+    private void CheckIfCanMove() {
+        if (!checkingZone && !whatchingPlayer)
         {
             agent.isStopped = false;
             agent.SetDestination(nextPointToGo);
@@ -120,4 +128,30 @@ public class EnemyController : MonoBehaviour
             agent.isStopped = true;
         }
     }
+
+    private void CheckIfSeeEnemy(){
+
+        if (sensorCone.GetDetectedByName("Player").Contains(Player) && !spiderCont.IsInvisible())
+        {
+            spiderCont.IsSeen();
+            //Debug.Log("Me Ve UWU");
+            whatchingPlayer = true;
+
+
+        }
+        else if (sensorCone.GetDetectedByName("Player").Contains(Player) && spiderCont.IsInvisible())
+        {
+            //Debug.Log("Me Ve Pero Soy INVISIBLE UWU");
+            whatchingPlayer = false;
+        }
+    }
+
+    public void SpiderOutOfVision()
+    {
+        spiderCont.IsntSeen();
+        //Debug.Log("Ya no me ve :)");
+        whatchingPlayer = false;
+
+    }
+
 }

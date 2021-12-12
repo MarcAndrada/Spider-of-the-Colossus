@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
-
+using UnityEngine.SceneManagement;
 public class SpiderStateController : MonoBehaviour
 {
     [Header("HUD")]
@@ -17,6 +16,10 @@ public class SpiderStateController : MonoBehaviour
     private Text NeededHPoints;
     [SerializeField]
     private Text hackedPointsT;
+    [SerializeField]
+    private GameObject missionComplete;
+    [SerializeField]
+    private GameObject missionFailed;
     [Header("Stats")]
     [SerializeField]
     private float invisibleConsumeSpeed;
@@ -35,6 +38,9 @@ public class SpiderStateController : MonoBehaviour
     private Material normalMaterial;
     [SerializeField]
     private Material invisibleMaterial;
+    [Header ("Others")]
+    [SerializeField]
+    private MainMenu sceneManager;
 
     private bool canMove = true;
     private bool isInvisible = false;
@@ -49,8 +55,10 @@ public class SpiderStateController : MonoBehaviour
     private float timeToWaitHBDisapear = 1.5f;
     private float timeWaitedHBDisapear = 0;
     private int hackedPoints = 0;
+    private int totalNeededPoints = 0;
 
     private SpiderController spiderMove;
+    private SpiderProceduralAnimation spiderLegs;
     private Slider alertBarSlider;
     private GameObject lastHackingPoint;
     private Slider hackingBarSlider;
@@ -59,10 +67,12 @@ public class SpiderStateController : MonoBehaviour
     void Start()
     {
         spiderMove = GetComponent<SpiderController>();
+        spiderLegs = GetComponentInChildren<SpiderProceduralAnimation>();
         alertBarSlider = alertBar.GetComponent<Slider>();
         hackingBarSlider = hackingBar.GetComponent<Slider>();
         GameObject[] hackingPointsScene = GameObject.FindGameObjectsWithTag("HackingPoint");
         NeededHPoints.text = hackingPointsScene.Length.ToString();
+        totalNeededPoints = hackingPointsScene.Length;
     }
 
     // Update is called once per frame
@@ -74,6 +84,7 @@ public class SpiderStateController : MonoBehaviour
         CheckIfObserved();
         SetHudValues();
         CheckHackZone();
+        CheckIfMissionComplete();
     }
 
     private void OnTriggerStay(Collider other)
@@ -162,7 +173,7 @@ public class SpiderStateController : MonoBehaviour
     }
 
     private void CheckIfObserved() {
-        if (isObserved)
+        if (isObserved && !isInvisible)
         {
             timeWaitedAlertDisapear = 0;
             alertBar.SetActive(true);
@@ -265,11 +276,67 @@ public class SpiderStateController : MonoBehaviour
 
         Destroy(lastHackingPoint);
         onHackingZone = false;
-        hackedPoints++;
         //sumar 1 en el contador de puntos hackeados
+        hackedPoints++;
+        SetNewStarterPos();
+        
+    }
+
+    private void SetNewStarterPos() {
+        spiderLegs.ResetStarterLegsPos();
     }
 
     private void MissionFailed() {
-    
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            missionFailed.SetActive(true);
+            StartCoroutine(RestartPosFailed());
+        }
+
     }
+
+    private void CheckIfMissionComplete() {
+
+        if (totalNeededPoints <= hackedPoints)
+        {
+            missionComplete.SetActive(true);
+            //hacer sonido de victoria
+            //hacer que si la escena no es tutorial que llame a la funcion de volver al menu
+            if (SceneManager.GetActiveScene().name != "Tutorial")
+            {
+                sceneManager.MissionComplete();
+            }
+        }
+
+    }
+
+    public bool IsInvisible()
+    {
+
+        return isInvisible;
+    }
+
+    public void IsSeen() {
+        isObserved = true;
+        
+    }
+
+    public void IsntSeen()
+    {
+
+        isObserved = false;
+    }
+
+
+    IEnumerator RestartPosFailed() {
+        TransitionController.ChangeScene();
+        yield return new WaitForSeconds(1.5f);
+        spiderLegs.RestartPos();
+        spiderMove.RestartPosition();
+        warnLevel = 0;
+        missionFailed.SetActive(false);
+
+
+    }
+
 }
