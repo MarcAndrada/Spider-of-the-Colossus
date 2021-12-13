@@ -56,16 +56,20 @@ public class SpiderStateController : MonoBehaviour
     private float timeWaitedHBDisapear = 0;
     private int hackedPoints = 0;
     private int totalNeededPoints = 0;
+    private bool win = false;
+    private bool lost = false;
 
     private SpiderController spiderMove;
     private SpiderProceduralAnimation spiderLegs;
     private Slider alertBarSlider;
     private GameObject lastHackingPoint;
     private Slider hackingBarSlider;
+    private SoundManager soundCont;
 
     // Start is called before the first frame update
     void Start()
     {
+
         spiderMove = GetComponent<SpiderController>();
         spiderLegs = GetComponentInChildren<SpiderProceduralAnimation>();
         alertBarSlider = alertBar.GetComponent<Slider>();
@@ -73,6 +77,10 @@ public class SpiderStateController : MonoBehaviour
         GameObject[] hackingPointsScene = GameObject.FindGameObjectsWithTag("HackingPoint");
         NeededHPoints.text = hackingPointsScene.Length.ToString();
         totalNeededPoints = hackingPointsScene.Length;
+        if (GameObject.FindGameObjectWithTag("SoundManager") != null)
+        {
+            soundCont = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        }
     }
 
     // Update is called once per frame
@@ -118,7 +126,7 @@ public class SpiderStateController : MonoBehaviour
         //Volverse Invisible
         isInvisible = true;
         SpiderModel.material = invisibleMaterial;
-        
+        soundCont.TurnInvisible();
 
     }
 
@@ -126,6 +134,7 @@ public class SpiderStateController : MonoBehaviour
         //Volverse visible
         isInvisible = false;
         SpiderModel.material = normalMaterial;
+        soundCont.TurnVisible();
     }
 
     private void CheckInvisibleControls() {
@@ -178,7 +187,7 @@ public class SpiderStateController : MonoBehaviour
             timeWaitedAlertDisapear = 0;
             alertBar.SetActive(true);
             warnLevel += warnSpeed / 100 * Time.deltaTime;
-            if (warnLevel >= 1)
+            if (warnLevel >= 1 && !lost)
             {
                 MissionFailed();
             }
@@ -235,6 +244,7 @@ public class SpiderStateController : MonoBehaviour
             //hacer visible el boton de E
             if (Input.GetButton("Hack"))
             {
+
                 hackingBar.SetActive(true);
                 //Bloquear movimiento
                 isHacking = true;
@@ -252,6 +262,15 @@ public class SpiderStateController : MonoBehaviour
                 hackingProgress = 0;
             }
 
+            if (Input.GetButtonDown("Hack"))
+            {
+                soundCont.StartHack();
+            }
+            else if (Input.GetButtonUp("Hack"))
+            {
+                soundCont.StopHack();
+
+            }
         }
         else
         {
@@ -279,7 +298,10 @@ public class SpiderStateController : MonoBehaviour
         //sumar 1 en el contador de puntos hackeados
         hackedPoints++;
         SetNewStarterPos();
-        
+        soundCont.StopHack();
+        soundCont.HackCompleted();
+
+
     }
 
     private void SetNewStarterPos() {
@@ -287,17 +309,20 @@ public class SpiderStateController : MonoBehaviour
     }
 
     private void MissionFailed() {
+        soundCont.StopHack();
         if (SceneManager.GetActiveScene().name != "Tutorial")
         {
             missionFailed.SetActive(true);
             StartCoroutine(RestartPosFailed());
         }
+        soundCont.MissionFailed();
+        lost = true;
 
     }
 
     private void CheckIfMissionComplete() {
 
-        if (totalNeededPoints <= hackedPoints)
+        if (totalNeededPoints <= hackedPoints && !win)
         {
             missionComplete.SetActive(true);
             //hacer sonido de victoria
@@ -306,6 +331,8 @@ public class SpiderStateController : MonoBehaviour
             {
                 sceneManager.MissionComplete();
             }
+            soundCont.MissionComplete();
+            win = true;
         }
 
     }
@@ -335,6 +362,7 @@ public class SpiderStateController : MonoBehaviour
         spiderMove.RestartPosition();
         warnLevel = 0;
         missionFailed.SetActive(false);
+        lost = false;
 
 
     }

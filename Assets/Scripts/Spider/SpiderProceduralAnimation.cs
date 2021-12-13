@@ -35,10 +35,15 @@ public class SpiderProceduralAnimation : MonoBehaviour
     private Quaternion starterRot;
 
     private SpiderController moveCont;
-
+    private SoundManager soundCont;
     
     void Start()
     {
+        if (GameObject.FindGameObjectWithTag("SoundManager"))
+        {
+            soundCont = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        }
+        
         lastBodyUp = transform.up;
 
         nbLegs = legTargets.Length;
@@ -188,10 +193,16 @@ public class SpiderProceduralAnimation : MonoBehaviour
             legTargets[index].position = Vector3.Lerp(startPos, targetPoint, i / (float)(smoothness + 1.5f));
             legTargets[index].position += transform.up * Mathf.Sin(i / (float)(smoothness + 1.5f) * Mathf.PI) * stepHeight;
             yield return new WaitForFixedUpdate();
+            
         }
         legTargets[index].position = targetPoint;
         lastLegPositions[index] = legTargets[index].position;
         legMoving[0] = false;
+        if (soundCont != null)
+        {
+            soundCont.SoundRandomFootstep();
+
+        }
     }
 
     public void ResetStarterLegsPos() {

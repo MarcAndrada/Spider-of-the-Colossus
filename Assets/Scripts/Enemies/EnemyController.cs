@@ -16,6 +16,10 @@ public class EnemyController : MonoBehaviour
     private float timeToWaitStoped;
     [SerializeField]
     private float Distance;
+    [SerializeField]
+    private AudioSource focusedAudioSource;
+    [SerializeField]
+    private AudioClip focusSound;
 
     private int itinerator;
     private bool checkingZone;
@@ -136,6 +140,10 @@ public class EnemyController : MonoBehaviour
             spiderCont.IsSeen();
             //Debug.Log("Me Ve UWU");
             whatchingPlayer = true;
+            if (!focusedAudioSource.isPlaying)
+            {
+                focusedAudioSource.PlayOneShot(focusSound);
+            }
 
 
         }
@@ -143,6 +151,7 @@ public class EnemyController : MonoBehaviour
         {
             //Debug.Log("Me Ve Pero Soy INVISIBLE UWU");
             whatchingPlayer = false;
+            focusedAudioSource.Stop();
         }
     }
 
@@ -151,6 +160,8 @@ public class EnemyController : MonoBehaviour
         spiderCont.IsntSeen();
         //Debug.Log("Ya no me ve :)");
         whatchingPlayer = false;
+        focusedAudioSource.Stop();
+
 
     }
 
