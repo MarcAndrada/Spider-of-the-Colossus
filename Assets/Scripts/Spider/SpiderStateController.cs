@@ -306,6 +306,7 @@ public class SpiderStateController : MonoBehaviour
 
     private void SetNewStarterPos() {
         spiderLegs.ResetStarterLegsPos();
+        spiderMove.ResetStarterPos();
     }
 
     private void MissionFailed() {
