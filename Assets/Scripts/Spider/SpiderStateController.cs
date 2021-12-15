@@ -297,7 +297,6 @@ public class SpiderStateController : MonoBehaviour
         onHackingZone = false;
         //sumar 1 en el contador de puntos hackeados
         hackedPoints++;
-        SetNewStarterPos();
         soundCont.StopHack();
         soundCont.HackCompleted();
 
@@ -311,11 +310,8 @@ public class SpiderStateController : MonoBehaviour
 
     private void MissionFailed() {
         soundCont.StopHack();
-        if (SceneManager.GetActiveScene().name != "Tutorial")
-        {
-            missionFailed.SetActive(true);
-            StartCoroutine(RestartPosFailed());
-        }
+        missionFailed.SetActive(true);
+        StartCoroutine(RestartPosFailed());
         soundCont.MissionFailed();
         lost = true;
 
@@ -328,10 +324,9 @@ public class SpiderStateController : MonoBehaviour
             missionComplete.SetActive(true);
             //hacer sonido de victoria
             //hacer que si la escena no es tutorial que llame a la funcion de volver al menu
-            if (SceneManager.GetActiveScene().name != "Tutorial")
-            {
-                sceneManager.MissionComplete();
-            }
+
+            StartCoroutine(sceneManager.MissionComplete());
+
             soundCont.MissionComplete();
             win = true;
         }

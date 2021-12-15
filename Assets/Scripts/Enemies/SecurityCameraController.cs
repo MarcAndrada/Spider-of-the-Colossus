@@ -18,6 +18,7 @@ public class SecurityCameraController : MonoBehaviour
     private GameObject Player;
     private SpiderStateController spiderCont;
     private Animator animator;
+    [SerializeField]
     private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,6 @@ public class SecurityCameraController : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         spiderCont = Player.GetComponent<SpiderStateController>();
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -76,7 +76,7 @@ public class SecurityCameraController : MonoBehaviour
     public void SpiderOutOfVision()
     {
         spiderCont.IsntSeen();
-        Debug.Log("Ya no me ve :)");
+        //Debug.Log("Ya no me ve :)");
 
     }
 

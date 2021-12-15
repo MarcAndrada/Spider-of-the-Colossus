@@ -5,6 +5,14 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioSource FSAsource;
+    [SerializeField]
+    private float minFSPitch;
+    [SerializeField]
+    private float maxFSPitch;
+    [SerializeField]
     private AudioClip[] footsteps;
     [SerializeField]
     private AudioClip turnInvisible;
@@ -19,12 +27,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioClip missionFailed;
 
-    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,7 +41,8 @@ public class SoundManager : MonoBehaviour
 
 
     public void SoundRandomFootstep() {
-        audioSource.PlayOneShot(footsteps[Random.Range(0,footsteps.Length - 1)]);
+        FSAsource.pitch = Random.Range(minFSPitch, maxFSPitch);
+        FSAsource.PlayOneShot(footsteps[Random.Range(0,footsteps.Length - 1)]);
     }
 
     public void TurnInvisible()

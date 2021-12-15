@@ -900,8 +900,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1258486591}
-  - component: {fileID: 1258486592}
   - component: {fileID: 1258486593}
+  - component: {fileID: 1258486592}
+  - component: {fileID: 1258486594}
   m_Layer: 0
   m_Name: Sounds
   m_TagString: SoundManager
@@ -1031,6 +1032,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed3ca1e886a689459503d85e1192938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 1258486592}
+  FSAsource: {fileID: 1258486594}
+  minFSPitch: 0.85
+  maxFSPitch: 1.15
   footsteps:
   - {fileID: 8300000, guid: 77437599886599a46b9cc0a6a4334e6d, type: 3}
   - {fileID: 8300000, guid: b150148a91eac9241b047dc274c7e186, type: 3}
@@ -1046,13 +1051,108 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 40bb615dc81a2fd4aa63e7b7647d4683, type: 3}
   - {fileID: 8300000, guid: 3229200b64103a647b0b8f2e9bfd0275, type: 3}
   - {fileID: 8300000, guid: ba788a300b30f3b4c80fc1409abbbc24, type: 3}
-  - {fileID: 8300000, guid: dd590a9ecb128ff48a6487731779d653, type: 3}
   turnInvisible: {fileID: 8300000, guid: 85cce518fa09fc64aa35e1b95f4c6492, type: 3}
   turnVisible: {fileID: 8300000, guid: 875e2f114637c6f47b323b0eabb616be, type: 3}
   hack: {fileID: 8300000, guid: e5163818b9a49584eb1b99cb29b9ac1b, type: 3}
   hackCompleted: {fileID: 8300000, guid: 04d5aa695c5814a4097f557fd025ebad, type: 3}
-  missionComplete: {fileID: 8300000, guid: e14d10a1694bef647806feb9897c7ebe, type: 3}
-  missionFailed: {fileID: 8300000, guid: fce5873f153f52d4190e0353b1692940, type: 3}
+  missionComplete: {fileID: 8300000, guid: 775208da771e7c746852063ac850d102, type: 3}
+  missionFailed: {fileID: 8300000, guid: 41e3b985c40dfb84b9f2d1c26fa4cca7, type: 3}
+--- !u!82 &1258486594
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258486590}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -2884367569850821296, guid: 5e3152a0219ea124fb996dafb8a31b12, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.518
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1817116206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,7 +1194,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 3071884996707215788, guid: 5e3152a0219ea124fb996dafb8a31b12, type: 2}
-  m_audioClip: {fileID: 8300000, guid: db9b5aa2f2197f24c94b2fb045fc5437, type: 3}
+  m_audioClip: {fileID: 8300000, guid: baf723126b015744482ddb7334fc756b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
