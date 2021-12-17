@@ -104,7 +104,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139779490}
-  m_LocalRotation: {x: -0.030568356, y: 0.000008834203, z: 0.000016281705, w: 0.9995327}
+  m_LocalRotation: {x: -0.030568087, y: 0.0000088342085, z: 0.000016281703, w: 0.99953276}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -385,7 +385,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202500374}
-  m_LocalRotation: {x: -0.012430372, y: 0.000009128124, z: 0.00001611876, w: 0.9999228}
+  m_LocalRotation: {x: -0.012430089, y: 0.0000091579295, z: 0.00001614856, w: 0.9999228}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -557,8 +557,8 @@ MonoBehaviour:
       m_LegacyVelocityFilterStrength: -1
   m_YAxisRecentering:
     m_enabled: 1
-    m_WaitTime: 3
-    m_RecenteringTime: 2
+    m_WaitTime: 1.5
+    m_RecenteringTime: 1
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
@@ -585,8 +585,8 @@ MonoBehaviour:
     m_Bias: 0
   m_RecenterToTargetHeading:
     m_enabled: 1
-    m_WaitTime: 1.5
-    m_RecenteringTime: 1
+    m_WaitTime: 0.55
+    m_RecenteringTime: 0.8
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_BindingMode: 3
@@ -1138,7 +1138,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1888060008}
-  m_LocalRotation: {x: 0.005759864, y: 0.000009419807, z: 0.000015950056, w: 0.99998343}
+  m_LocalRotation: {x: 0.0057600136, y: 0.000009390006, z: 0.000015979858, w: 0.99998343}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1214,8 +1214,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100092156}
-  m_LocalRotation: {x: 0.012451978, y: -0, z: -0, w: -0.9999225}
-  m_LocalPosition: {x: 0, y: 0.3005066, z: -2.0481358}
+  m_LocalRotation: {x: -0.012451619, y: 0.000000029802322, z: 0.00000008940697, w: 0.9999225}
+  m_LocalPosition: {x: 0, y: 0.3005104, z: -2.0483665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3901861740086246501}

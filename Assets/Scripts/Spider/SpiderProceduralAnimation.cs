@@ -57,10 +57,10 @@ public class SpiderProceduralAnimation : MonoBehaviour
             legMoving[i] = false;
         }
         lastBodyPos = transform.position;
+        starterpos = transform.position;
+        starterRot = transform.rotation;
         Cursor.visible = false;
-
         moveCont = GetComponentInParent<SpiderController>();
-        ResetStarterLegsPos();
     }
 
     void Update() {
@@ -205,17 +205,10 @@ public class SpiderProceduralAnimation : MonoBehaviour
         }
     }
 
-    public void ResetStarterLegsPos() {
-        starterpos = transform.position;
-        starterRot = transform.rotation;
-    }
-
     public void RestartPos() {
-        for (int i = 0; i < 100; i++)
-        {
-            transform.position = starterpos;
-            transform.rotation = starterRot;
-        }
+        transform.position = starterpos;
+        transform.rotation = starterRot;
+        
         
     }
 

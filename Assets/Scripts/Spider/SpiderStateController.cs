@@ -303,11 +303,6 @@ public class SpiderStateController : MonoBehaviour
 
     }
 
-    private void SetNewStarterPos() {
-        spiderLegs.ResetStarterLegsPos();
-        spiderMove.ResetStarterPos();
-    }
-
     private void MissionFailed() {
         soundCont.StopHack();
         missionFailed.SetActive(true);
@@ -354,8 +349,11 @@ public class SpiderStateController : MonoBehaviour
     IEnumerator RestartPosFailed() {
         TransitionController.ChangeScene();
         yield return new WaitForSeconds(1.5f);
-        spiderLegs.RestartPos();
-        spiderMove.RestartPosition();
+        for (int i = 0; i < 100; i++)
+        {
+            spiderLegs.RestartPos();
+            spiderMove.RestartPosition();
+        }
         warnLevel = 0;
         missionFailed.SetActive(false);
         lost = false;
