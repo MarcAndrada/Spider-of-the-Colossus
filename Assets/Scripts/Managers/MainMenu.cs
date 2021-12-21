@@ -31,13 +31,22 @@ public class MainMenu : MonoBehaviour
 
     }
 
-    public void goServerRoom()
+    public void goLevel1()
     {
         TransitionController.ChangeScene();
         getDark = true;
-        nextScene = "ServerRoom";
+        nextScene = "Level1";
         TransitionController.ActiveLoadIcon();
     }
+
+    public void goLevel2()
+    {
+        TransitionController.ChangeScene();
+        getDark = true;
+        nextScene = "Level2";
+        TransitionController.ActiveLoadIcon();
+    }
+
     public void goTutorial(){
         TransitionController.ChangeScene();
         getDark = true;
