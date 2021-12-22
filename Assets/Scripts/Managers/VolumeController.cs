@@ -13,8 +13,8 @@ public class VolumeController : MonoBehaviour
     private AudioMixer mixer;
     [SerializeField]
     private Slider slider;
-    [SerializeField]
-    private float multiplier = 10f;
+
+    private float multiplier = 20;
 
     // Start is called before the first frame update
     private void Awake()
