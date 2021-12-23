@@ -7,8 +7,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
-    private AudioSource FSAsource;
-    [SerializeField]
     private float minFSPitch;
     [SerializeField]
     private float maxFSPitch;
@@ -40,9 +38,9 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void SoundRandomFootstep() {
-        FSAsource.pitch = Random.Range(minFSPitch, maxFSPitch);
-        FSAsource.PlayOneShot(footsteps[Random.Range(0,footsteps.Length - 1)]);
+    public void SoundRandomFootstep(AudioSource _legAS) {
+        _legAS.pitch = Random.Range(minFSPitch, maxFSPitch);
+        _legAS.PlayOneShot(footsteps[Random.Range(0,footsteps.Length - 1)]);
     }
 
     public void TurnInvisible()

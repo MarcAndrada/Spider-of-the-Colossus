@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpiderProceduralAnimation : MonoBehaviour
 {
     [SerializeField]
-    private Transform[] legTargets;
+    private GameObject[] legTargets;
     [SerializeField]
     private int smoothness;
     [SerializeField]
@@ -27,6 +27,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
     private Vector3[] defaultLegPositions;
     private Vector3[] lastLegPositions;
+    private AudioSource[] audioSLegs;
     private Vector3 lastBodyUp;
     private Vector3 velocity;
     private Vector3 lastVelocity;
@@ -50,11 +51,13 @@ public class SpiderProceduralAnimation : MonoBehaviour
         defaultLegPositions = new Vector3[nbLegs];
         lastLegPositions = new Vector3[nbLegs];
         legMoving = new bool[nbLegs];
+        audioSLegs = new AudioSource[nbLegs];
         for (int i = 0; i < nbLegs; ++i)
         {
-            defaultLegPositions[i] = legTargets[i].localPosition;
-            lastLegPositions[i] = legTargets[i].position;
+            defaultLegPositions[i] = legTargets[i].transform.localPosition;
+            lastLegPositions[i] = legTargets[i].transform.position;
             legMoving[i] = false;
+            audioSLegs[i] = legTargets[i].GetComponent<AudioSource>();
         }
         lastBodyPos = transform.position;
         starterpos = transform.position;
@@ -112,13 +115,13 @@ public class SpiderProceduralAnimation : MonoBehaviour
         {
             if (i != indexToMove)
             {
-                legTargets[i].position = lastLegPositions[i];
+                legTargets[i].transform.position = lastLegPositions[i];
             }
         }
 
         if (indexToMove != -1 && !legMoving[0])
         {
-            Vector3 targetPoint = desiredPositions[indexToMove] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPositions[indexToMove] - legTargets[indexToMove].position) + velocity * velocityMultiplier;
+            Vector3 targetPoint = desiredPositions[indexToMove] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPositions[indexToMove] - legTargets[indexToMove].transform.position) + velocity * velocityMultiplier;
 
             Vector3[] positionAndNormalFwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange, (transform.parent.up - velocity * 75).normalized);
             Vector3[] positionAndNormalBwd = MatchToSurfaceFromAbove(targetPoint + velocity / 2 * velocityMultiplier, raycastRange * (1f + velocity.magnitude), (transform.parent.up + velocity * 75).normalized);
@@ -138,8 +141,8 @@ public class SpiderProceduralAnimation : MonoBehaviour
         lastBodyPos = transform.position;
         if (nbLegs > 3)
         {
-            Vector3 v1 = legTargets[0].position - legTargets[1].position;
-            Vector3 v2 = legTargets[2].position - legTargets[3].position;
+            Vector3 v1 = legTargets[0].transform.position - legTargets[1].transform.position;
+            Vector3 v2 = legTargets[2].transform.position - legTargets[3].transform.position;
             Vector3 normal = Vector3.Cross(v1, v2).normalized;
             Vector3 up = Vector3.Lerp(lastBodyUp, normal, 1f / (float)(smoothness + 1));
             transform.up = up;
@@ -156,7 +159,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
         for (int i = 0; i < nbLegs; ++i)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(legTargets[i].position, 0.05f);
+            Gizmos.DrawWireSphere(legTargets[i].transform.position, 0.05f);
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.TransformPoint(defaultLegPositions[i]), stepSize);
         }
@@ -190,17 +193,17 @@ public class SpiderProceduralAnimation : MonoBehaviour
         Vector3 startPos = lastLegPositions[index];
         for (int i = 1; i <= smoothness; ++i)
         {
-            legTargets[index].position = Vector3.Lerp(startPos, targetPoint, i / (float)(smoothness + 1.5f));
-            legTargets[index].position += transform.up * Mathf.Sin(i / (float)(smoothness + 1.5f) * Mathf.PI) * stepHeight;
+            legTargets[index].transform.position = Vector3.Lerp(startPos, targetPoint, i / (float)(smoothness + 1.5f));
+            legTargets[index].transform.position += transform.up * Mathf.Sin(i / (float)(smoothness + 1.5f) * Mathf.PI) * stepHeight;
             yield return new WaitForFixedUpdate();
             
         }
-        legTargets[index].position = targetPoint;
-        lastLegPositions[index] = legTargets[index].position;
+        legTargets[index].transform.position = targetPoint;
+        lastLegPositions[index] = legTargets[index].transform.position;
         legMoving[0] = false;
         if (soundCont != null)
         {
-            soundCont.SoundRandomFootstep();
+            soundCont.SoundRandomFootstep(audioSLegs[index]);
 
         }
     }

@@ -29,7 +29,7 @@ public class SpiderController : MonoBehaviour
     private float innerRaysOffset;
     [SerializeField]
     private float middleRaysOffset;
-    [Header("Extern Objects")]
+    //[Header("Extern Objects")]
     //[SerializeField]
     //private Transform[] legsPos;
 
