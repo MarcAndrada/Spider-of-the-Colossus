@@ -78,11 +78,15 @@ namespace SlimUI.ModernMenu
 		public Slider loadBar;
 		public TMP_Text finishedLoadingText;
 
+
+		private SoundManager soundCont;
+
 		void Start()
 		{
 			CameraObject = transform.GetComponent<Animator>();
 			DisableMenus();
 			if(isMobile) menus[0].SetActive(true);
+			soundCont = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
 		}
 
 		void Awake()
@@ -214,17 +218,18 @@ namespace SlimUI.ModernMenu
 
 		public void PlayHover()
 		{
-			hoverSound.Play();
+			soundCont.HoverMenu();
 		}
 
-		public void PlaySFXHover()
+		public void PlayClick()
 		{
-			sliderSound.Play();
+			soundCont.ClickMenu();
+
 		}
 
 		public void PlaySwoosh()
 		{
-			swooshSound.Play();
+			//swooshSound.Play();
 		}
 
 		public void QuitGame()
@@ -261,5 +266,6 @@ namespace SlimUI.ModernMenu
 				yield return null;
 			}
 		}
+
 	}
 }

@@ -24,6 +24,10 @@ public class SoundManager : MonoBehaviour
     private AudioClip missionComplete;
     [SerializeField]
     private AudioClip missionFailed;
+    [SerializeField]
+    private AudioClip clickSound;
+    [SerializeField]
+    private AudioClip hoverSound;
 
 
     // Start is called before the first frame update
@@ -72,6 +76,16 @@ public class SoundManager : MonoBehaviour
 
     public void MissionFailed() {
         audioSource.PlayOneShot(missionFailed);
+    }
+
+
+
+    public void HoverMenu() {
+        audioSource.PlayOneShot(hoverSound);
+    }
+
+    public void ClickMenu() {
+        audioSource.PlayOneShot(clickSound);
     }
 
 }

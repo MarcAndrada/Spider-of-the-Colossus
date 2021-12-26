@@ -9,13 +9,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private GameObject[] placeToGo;
     [SerializeField]
+    private Vector3 currentTarget;
+    [SerializeField]
     private int[] placeToStop;
     [SerializeField]
-    private float distanceToReach;
-    [SerializeField]
     private float timeToWaitStoped;
-    [SerializeField]
-    private float Distance;
     [SerializeField]
     private AudioSource focusedAudioSource;
     [SerializeField]
@@ -51,15 +49,16 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
 
-        Distance = Vector3.Distance(nextPointToGo, transform.position);
+        currentTarget = nextPointToGo;
         SetNewPosMove();
         FreezeTimer();
         CheckIfSeeEnemy();
+        CheckIfCanMove();
+
     }
 
     private void FixedUpdate()
     {
-        CheckIfCanMove();
 
     }
 
@@ -69,7 +68,7 @@ public class EnemyController : MonoBehaviour
         //Establecer la nueva posicion a la que ir
         //Y en caso de que no se mueva contar los segundos que estara quieto
         //Revisamos si la distancia al punto es lo suficientemente corta para poder ir hacia el otro
-        if (Vector3.Distance(nextPointToGo, transform.position) <= distanceToReach)
+        if (!agent.hasPath)
         {
             //Revisamos si el punto en el que esta es el ultimo, en ese caso lo reiniciamos todo
             if (itinerator >= placeToGo.Length - 1)

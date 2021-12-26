@@ -1055,6 +1055,8 @@ MonoBehaviour:
   hackCompleted: {fileID: 8300000, guid: 04d5aa695c5814a4097f557fd025ebad, type: 3}
   missionComplete: {fileID: 8300000, guid: 775208da771e7c746852063ac850d102, type: 3}
   missionFailed: {fileID: 8300000, guid: 41e3b985c40dfb84b9f2d1c26fa4cca7, type: 3}
+  clickSound: {fileID: 8300000, guid: 9f7c2e833798a8548b03ff9826e84ba3, type: 3}
+  hoverSound: {fileID: 8300000, guid: 8cf8a276714b8ed408b6bde4d938a3cc, type: 3}
 --- !u!1 &1817116206
 GameObject:
   m_ObjectHideFlags: 0
