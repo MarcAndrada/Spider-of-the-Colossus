@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_SpotAngle
       value: 19.411942
       objectReference: {fileID: 0}
+    - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1539845823, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.067
@@ -231,6 +235,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: security_camera (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8232486055601388571, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a0ab86052250db64eb4e3f65b9a2fd9a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
 --- !u!1 &7751258562664791015 stripped

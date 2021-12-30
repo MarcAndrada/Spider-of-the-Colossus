@@ -35,7 +35,10 @@ public class VolumeController : MonoBehaviour
         mixer.SetFloat(volumeParameter, Mathf.Log10(value) * multiplier);
     }
 
-
+    public void Save()
+    {
+        PlayerPrefs.Save();
+    }
 
 
 }

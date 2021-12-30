@@ -104,7 +104,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139779490}
-  m_LocalRotation: {x: -0.03083216, y: 0.000008830981, z: 0.000016284072, w: 0.9995246}
+  m_LocalRotation: {x: -0.030832162, y: 0.000008828831, z: 0.000016284004, w: 0.9995246}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -557,7 +557,7 @@ MonoBehaviour:
       m_LegacyVelocityFilterStrength: -1
   m_YAxisRecentering:
     m_enabled: 1
-    m_WaitTime: 4
+    m_WaitTime: 7
     m_RecenteringTime: 1
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
@@ -585,7 +585,7 @@ MonoBehaviour:
     m_Bias: 0
   m_RecenterToTargetHeading:
     m_enabled: 1
-    m_WaitTime: 0.55
+    m_WaitTime: 3
     m_RecenteringTime: 0.8
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
@@ -646,9 +646,9 @@ MonoBehaviour:
   m_CameraRadius: 0.1
   m_Strategy: 0
   m_MaximumEffort: 7
-  m_SmoothingTime: 0.5
-  m_Damping: 0
-  m_DampingWhenOccluded: 0
+  m_SmoothingTime: 0.71
+  m_Damping: 0.2
+  m_DampingWhenOccluded: 0.2
   m_OptimalTargetDistance: 0
 --- !u!1 &935322909
 GameObject:
@@ -1215,8 +1215,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100092156}
-  m_LocalRotation: {x: -0.012715922, y: 1.4197304e-14, z: 3.4387984e-16, w: 0.9999192}
-  m_LocalPosition: {x: 0, y: 0.30699992, z: -2.74}
+  m_LocalRotation: {x: -0.008779796, y: 0.70705247, z: 0.008779798, w: 0.70705205}
+  m_LocalPosition: {x: -29.448078, y: -2.167944, z: 15.550001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3901861740086246501}

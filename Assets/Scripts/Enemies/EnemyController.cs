@@ -9,8 +9,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private GameObject[] placeToGo;
     [SerializeField]
-    private Vector3 currentTarget;
-    [SerializeField]
     private int[] placeToStop;
     [SerializeField]
     private float timeToWaitStoped;
@@ -43,22 +41,20 @@ public class EnemyController : MonoBehaviour
         {
             stoppedHere[i] = false;
         }
+        Debug.Log("EMPIEZA EL PARTIDO");
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        currentTarget = nextPointToGo;
         SetNewPosMove();
-        FreezeTimer();
         CheckIfSeeEnemy();
         CheckIfCanMove();
+        FreezeTimer();
+        Debug.Log("ol gud");
 
-    }
-
-    private void FixedUpdate()
-    {
 
     }
 
@@ -134,10 +130,11 @@ public class EnemyController : MonoBehaviour
 
     private void CheckIfSeeEnemy(){
 
+
         if (sensorCone.GetDetectedByName("Player").Contains(Player) && !spiderCont.IsInvisible())
         {
             spiderCont.IsSeen();
-            //Debug.Log("Me Ve UWU");
+            Debug.Log("Me Ve UWU");
             whatchingPlayer = true;
             if (!focusedAudioSource.isPlaying)
             {
@@ -148,16 +145,21 @@ public class EnemyController : MonoBehaviour
         }
         else if (sensorCone.GetDetectedByName("Player").Contains(Player) && spiderCont.IsInvisible())
         {
-            //Debug.Log("Me Ve Pero Soy INVISIBLE UWU");
+            Debug.Log("Me Ve Pero Soy INVISIBLE UWU");
             whatchingPlayer = false;
             focusedAudioSource.Stop();
+        }
+        else
+        {
+            Debug.Log("Esto no chufla");
+
         }
     }
 
     public void SpiderOutOfVision()
     {
         spiderCont.IsntSeen();
-        //Debug.Log("Ya no me ve :)");
+        Debug.Log("Ya no me ve :)");
         whatchingPlayer = false;
         focusedAudioSource.Stop();
 
