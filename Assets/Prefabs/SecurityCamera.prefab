@@ -81,6 +81,7 @@ MonoBehaviour:
   EnableTagFilter: 1
   AllowedTags:
   - Player
+  - Untagged
   OnDetected:
     m_PersistentCalls:
       m_Calls: []
@@ -99,7 +100,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  DetectionMode: 1
+  DetectionMode: 0
   RequiresLineOfSight: 0
   BlocksLineOfSight:
     serializedVersion: 2
@@ -139,7 +140,7 @@ MonoBehaviour:
   BaseSize: 0.5
   FOVAngle: 14.07
   ElevationAngle: 11.2
-  Resolution: 3
+  Resolution: 0
 --- !u!54 &7967519147761616426
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -169,15 +170,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
       propertyPath: m_Intensity
-      value: 55
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
       propertyPath: m_SpotAngle
       value: 19.411942
       objectReference: {fileID: 0}
     - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
       propertyPath: m_Lightmapping
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539845822, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 1539845823, guid: beb371209ab6caa45be5c7b336aaa6f9, type: 3}
       propertyPath: m_LocalPosition.x

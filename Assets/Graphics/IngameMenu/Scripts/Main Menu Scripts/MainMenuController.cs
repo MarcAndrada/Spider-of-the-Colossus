@@ -18,12 +18,17 @@ public class MainMenuController : MonoBehaviour {
     public GameObject GfxPanel;
     public GameObject LoadGamePanel;
 
+    private SoundManager soundCont;
+
+
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
 
         //new key
         PlayerPrefs.SetInt("quickSaveSlot", quickSaveSlotID);
+        soundCont = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+
     }
 
     #region Open Different panels
@@ -176,4 +181,16 @@ public class MainMenuController : MonoBehaviour {
 
 
     #endregion
+
+
+    public void PlayHover()
+    {
+        soundCont.HoverMenu();
+    }
+
+    public void PlayClick()
+    {
+        soundCont.ClickMenu();
+
+    }
 }

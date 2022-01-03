@@ -7,7 +7,7 @@ public class SpiderStateController : MonoBehaviour
 {
     [Header("HUD")]
     [SerializeField]
-    private Slider invisivilityBar;
+    private GameObject invisibilityBar;
     [SerializeField]
     private GameObject alertBar;
     [SerializeField]
@@ -47,6 +47,8 @@ public class SpiderStateController : MonoBehaviour
     private float currentInvisibleTime = 1;
     private bool isObserved;
     private float warnLevel;
+    private float timeToWaitInvBarDisapear = 1.5f;
+    private float timeWaitedInvBarDisapear = 0;
     private float timeToWaitAlertDisapear = 1.5f;
     private float timeWaitedAlertDisapear = 0;
     private bool onHackingZone = false;
@@ -61,6 +63,7 @@ public class SpiderStateController : MonoBehaviour
 
     private SpiderController spiderMove;
     private SpiderProceduralAnimation spiderLegs;
+    private Slider invisivilityBarSlider;
     private Slider alertBarSlider;
     private GameObject lastHackingPoint;
     private Slider hackingBarSlider;
@@ -72,6 +75,7 @@ public class SpiderStateController : MonoBehaviour
 
         spiderMove = GetComponent<SpiderController>();
         spiderLegs = GetComponentInChildren<SpiderProceduralAnimation>();
+        invisivilityBarSlider = invisibilityBar.GetComponent<Slider>();
         alertBarSlider = alertBar.GetComponent<Slider>();
         hackingBarSlider = hackingBar.GetComponent<Slider>();
         GameObject[] hackingPointsScene = GameObject.FindGameObjectsWithTag("HackingPoint");
@@ -152,6 +156,8 @@ public class SpiderStateController : MonoBehaviour
     private void CheckIfInvisible() {
         if (isInvisible)
         {
+            invisibilityBar.SetActive(true);
+
             currentInvisibleTime -= invisibleConsumeSpeed / 100 * Time.deltaTime;
             if (currentInvisibleTime <= 0)
             {
@@ -167,13 +173,22 @@ public class SpiderStateController : MonoBehaviour
         else 
         {
             currentInvisibleTime = 1;
+            if (invisibilityBar.activeInHierarchy)
+            {
+                timeWaitedInvBarDisapear += Time.deltaTime;
+                if (timeWaitedInvBarDisapear >= timeToWaitInvBarDisapear)
+                {
+                    invisibilityBar.SetActive(false);
+                    timeWaitedInvBarDisapear = 0;
+                }
+            }
         }
 
 
     }
 
     public void SetHudValues() {
-        invisivilityBar.value = currentInvisibleTime;
+        invisivilityBarSlider.value = currentInvisibleTime;
         alertBarSlider.value = warnLevel;
         //Hacer que un slider con una barra de hackeo aumente
         hackingBarSlider.value = hackingProgress;

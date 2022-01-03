@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 5560138017449329015}
   - component: {fileID: 8850648528482311077}
   - component: {fileID: 1687016318690294199}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: VisionCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  DetectionMode: 1
+  DetectionMode: 0
   RequiresLineOfSight: 0
   BlocksLineOfSight:
     serializedVersion: 2
@@ -337,7 +337,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 50
+  m_Intensity: 30
   m_Range: 12.619125
   m_SpotAngle: 33
   m_InnerSpotAngle: 2
@@ -374,7 +374,7 @@ Light:
   m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 4294967295
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -590,11 +590,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  currentTarget: {x: 0, y: 0, z: 0}
   placeToStop: 05000000
   timeToWaitStoped: 2
   focusedAudioSource: {fileID: 4007775580858756961}
   focusSound: {fileID: 8300000, guid: 6c592eb385185b449a8bacc0146a93f2, type: 3}
+  debug: 0
+  itinerator: 0
 --- !u!195 &9160973492688859974
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -616,4 +617,4 @@ NavMeshAgent:
   m_Height: 1.46
   m_BaseOffset: -0.51
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 0

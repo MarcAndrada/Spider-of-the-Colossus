@@ -122,7 +122,7 @@ public class SpiderController : MonoBehaviour
             RaycastHit hit;
             Vector3 largener = Vector3.ProjectOnPlane(dir, up);
             Ray ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset1 / 100f, dir);
-            Debug.DrawRay(ray.origin, ray.direction, Color.gray);
+            //Debug.DrawRay(ray.origin, ray.direction, Color.gray);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
@@ -131,7 +131,7 @@ public class SpiderController : MonoBehaviour
                 positionAmount += 1;
             }
             ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset2 / 100f, dir);
-            Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
+            //Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;
@@ -141,7 +141,7 @@ public class SpiderController : MonoBehaviour
             }
 
             ray = new Ray(point - (dir + largener) * halfRange + largener.normalized * offset3 / 100, dir);
-            Debug.DrawRay(ray.origin, ray.direction, Color.green);
+            //Debug.DrawRay(ray.origin, ray.direction, Color.green);
             if (Physics.SphereCast(ray, 0.01f, out hit, 2f * halfRange))
             {
                 res[0] += hit.point;

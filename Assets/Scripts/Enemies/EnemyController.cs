@@ -16,7 +16,9 @@ public class EnemyController : MonoBehaviour
     private AudioSource focusedAudioSource;
     [SerializeField]
     private AudioClip focusSound;
-
+    [SerializeField]
+    private bool debug = false;
+    [SerializeField]
     private int itinerator;
     private bool checkingZone;
     private float timeStoped = 0;
@@ -41,19 +43,19 @@ public class EnemyController : MonoBehaviour
         {
             stoppedHere[i] = false;
         }
-        Debug.Log("EMPIEZA EL PARTIDO");
-
+        //Debug.Log("EMPIEZA EL PARTIDO");
+        nextPointToGo = placeToGo[0].transform.position;
+        agent.SetDestination(nextPointToGo);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         SetNewPosMove();
         CheckIfSeeEnemy();
         CheckIfCanMove();
         FreezeTimer();
-        Debug.Log("ol gud");
+        //Debug.Log("ol gud");
 
 
     }
@@ -64,8 +66,10 @@ public class EnemyController : MonoBehaviour
         //Establecer la nueva posicion a la que ir
         //Y en caso de que no se mueva contar los segundos que estara quieto
         //Revisamos si la distancia al punto es lo suficientemente corta para poder ir hacia el otro
+
+
         if (!agent.hasPath)
-        {
+            {
             //Revisamos si el punto en el que esta es el ultimo, en ese caso lo reiniciamos todo
             if (itinerator >= placeToGo.Length - 1)
             {
@@ -80,8 +84,15 @@ public class EnemyController : MonoBehaviour
             else if (!checkingZone)
             {
                 //Aumentamos el accumulador 
-
+                
                 itinerator++;
+                nextPointToGo = placeToGo[itinerator].transform.position;
+                agent.SetDestination(nextPointToGo);
+
+                if (debug)
+                {
+                    Debug.Log("Ahora toca el " + itinerator + placeToGo[itinerator].transform.position);
+                }
 
             }
 
@@ -96,9 +107,9 @@ public class EnemyController : MonoBehaviour
 
         }
 
-
-
         nextPointToGo = placeToGo[itinerator].transform.position;
+
+
     }
 
     private void FreezeTimer() {
@@ -131,10 +142,10 @@ public class EnemyController : MonoBehaviour
     private void CheckIfSeeEnemy(){
 
 
-        if (sensorCone.GetDetectedByName("Player").Contains(Player) && !spiderCont.IsInvisible())
+        if (sensorCone.GetDetectedByComponent<SpiderStateController>().Contains(spiderCont) && !spiderCont.IsInvisible())
         {
             spiderCont.IsSeen();
-            Debug.Log("Me Ve UWU");
+            //Debug.Log("Me Ve UWU");
             whatchingPlayer = true;
             if (!focusedAudioSource.isPlaying)
             {
@@ -143,15 +154,15 @@ public class EnemyController : MonoBehaviour
 
 
         }
-        else if (sensorCone.GetDetectedByName("Player").Contains(Player) && spiderCont.IsInvisible())
+        else if (sensorCone.GetDetectedByComponent<SpiderStateController>().Contains(spiderCont) && spiderCont.IsInvisible())
         {
-            Debug.Log("Me Ve Pero Soy INVISIBLE UWU");
+            //Debug.Log("Me Ve Pero Soy INVISIBLE UWU");
             whatchingPlayer = false;
             focusedAudioSource.Stop();
         }
         else
         {
-            Debug.Log("Esto no chufla");
+            //Debug.Log("Esto no chufla");
 
         }
     }
@@ -159,7 +170,7 @@ public class EnemyController : MonoBehaviour
     public void SpiderOutOfVision()
     {
         spiderCont.IsntSeen();
-        Debug.Log("Ya no me ve :)");
+        //Debug.Log("Ya no me ve :)");
         whatchingPlayer = false;
         focusedAudioSource.Stop();
 
