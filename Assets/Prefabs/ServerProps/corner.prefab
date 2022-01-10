@@ -12,32 +12,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0044
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -21.49
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.023899987
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -11.495401
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.00000016391276
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 2.7059367e-18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.0000000218557
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -45,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -180.00002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -57,7 +61,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: dc772efc330be464785be67d4a6ee8a6, type: 2}
     - target: {fileID: 919132149155446097, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
       propertyPath: m_Name
-      value: corner
+      value: corner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
@@ -80,3 +92,29 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5761739814090621300, guid: 39db49ee5060123428669cf915c4bc9b, type: 3}
+--- !u!65 &617822797
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443653214201397372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3689896, y: 3.8312802, z: 5.1872864}
+  m_Center: {x: 0.7475876, y: 1.9156401, z: 0.6780033}
+--- !u!65 &617822798
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443653214201397372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.8387341, y: 3.8312802, z: 1.3586178}
+  m_Center: {x: -1.8513983, y: 1.9156402, z: 2.5963297}

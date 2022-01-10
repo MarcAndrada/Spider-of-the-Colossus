@@ -90,7 +90,19 @@ public class MainMenu : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         getDark = true;
-        nextScene = "MainMenu";
+
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            nextScene = "Level1";
+        }
+        else if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            nextScene = "Level2";
+        }
+        else
+        {
+            nextScene = "MainMenu";
+        }
 
 
     } 

@@ -31,6 +31,8 @@ public class SpiderStateController : MonoBehaviour
     private float unwarnedSpeed;
     [SerializeField]
     private float hackingSpeed;
+    [SerializeField]
+    private float hackingDowngradeSpeed;
     [Header("Invisibility Materials")]
     [SerializeField]
     private SkinnedMeshRenderer SpiderModel;
@@ -269,6 +271,10 @@ public class SpiderStateController : MonoBehaviour
                 {
                     HackComplete();
                 }
+            }
+            else if (hackingProgress > 0)
+            {
+                hackingProgress -= hackingDowngradeSpeed / 100 * Time.deltaTime;
             }
             else
             {
