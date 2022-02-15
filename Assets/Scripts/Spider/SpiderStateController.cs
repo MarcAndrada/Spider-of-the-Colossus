@@ -274,6 +274,8 @@ public class SpiderStateController : MonoBehaviour
             }
             else if (hackingProgress > 0)
             {
+                isHacking = false;
+
                 hackingProgress -= hackingDowngradeSpeed / 100 * Time.deltaTime;
             }
             else

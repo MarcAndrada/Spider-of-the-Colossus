@@ -27,7 +27,6 @@ public class LevelTitleController : MonoBehaviour
     {
         textAlpha -= 0.1f * Time.deltaTime;
 
-        Debug.Log(textAlpha);
 
         text.color = new Color(text.color.r, text.color.g, text.color.b, textAlpha);
 
